@@ -1236,7 +1236,7 @@ class ProtonDefaultTest(unittest.TestCase):
             globals_ = COMPAT["native_targets"].__globals__
             original_platforms = globals_["appinfo_platforms"]
             globals_["appinfo_platforms"] = lambda _path, wanted: {
-                "427520": ({"linux", "macos", "windows"}, "", "game")
+                "427520": ({"linux", "macos", "windows"}, "", "game", "")
             } if "427520" in wanted else {}
             try:
                 native = COMPAT["native_targets"](str(steam), ["427520"])

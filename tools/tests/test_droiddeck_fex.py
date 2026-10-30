@@ -838,12 +838,13 @@ class AppInfoTest(unittest.TestCase):
                     40: ("linux", "arm64", "game"), 41: ("windows,linux", "aarch64", "game"),
                     50: ("linux", "", "Demo"), 70: ("linux", "", "Tool"), 80: ("linux", "", "config"),
                     90: ("linux", "", ""),
+                    42: {"common": {"type": "game", "oslist": "windows,linux", "osarch": "64", "oscpu": "x86,arm64"}},
                 }, magic))
                 self.COMPAT["APPINFO_CACHE"].clear()
-                targets = self.COMPAT["native_targets"](str(steam), ["10", "20", "30", "40", "41", "50", "70", "80", "90", "1628350", "60"])
+                targets = self.COMPAT["native_targets"](str(steam), ["10", "20", "30", "40", "41", "42", "50", "70", "80", "90", "1628350", "60"])
                 self.assertEqual(targets, {
                     "20": "droiddeck-fex", "30": self.COMPAT["NATIVE_CHOICE"],
-                    "40": None, "41": None, "50": "droiddeck-fex",
+                    "40": None, "41": None, "42": "droiddeck-fex", "50": "droiddeck-fex",
                 }, hex(magic))
 
     @staticmethod

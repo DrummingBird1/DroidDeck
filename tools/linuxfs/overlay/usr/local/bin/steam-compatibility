@@ -880,6 +880,7 @@ def appinfo_entries(path):
         entry = {
             "oslist": {part.strip().lower() for part in str(common.get("oslist", "")).split(",") if part.strip()},
             "osarch": str(common.get("osarch", "")).lower(),
+            "oscpu": str(common.get("oscpu", "")).lower(),
             "type": str(common.get("type", "")).lower(),
             "recommended": str(recommended),
             "launch": launch_programs(info.get("config")),
@@ -897,7 +898,8 @@ def appinfo_entries(path):
 
 def appinfo_platforms(path, wanted):
     entries = appinfo_entries(path)
-    return {app: (entries[app]["oslist"], entries[app]["osarch"], entries[app]["type"]) for app in wanted if app in entries}
+    return {app: (entries[app]["oslist"], entries[app]["osarch"], entries[app]["type"], entries[app]["oscpu"])
+            for app in wanted if app in entries}
 
 
 def valve_picks(steam_root):
@@ -919,13 +921,14 @@ def native_targets(steam_root, apps):
     if not wanted:
         return {}
     targets = {}
-    for app, (oslist, osarch, kind) in appinfo_platforms(os.path.join(steam_root, "appcache", "appinfo.vdf"), wanted).items():
+    for app, (oslist, osarch, kind, oscpu) in appinfo_platforms(os.path.join(steam_root, "appcache", "appinfo.vdf"), wanted).items():
         if kind not in PLAYABLE_TYPES or "linux" not in oslist:
             continue
         if "arm64" in osarch or "aarch64" in osarch:
             targets[app] = None
             continue
-        if "windows" in oslist:
+        # Steamworks has no arm64 launch-option architecture; a Linux build that also carries arm64 says so in oscpu.
+        if "windows" in oslist and "arm64" not in oscpu and "aarch64" not in oscpu:
             targets[app] = NATIVE_CHOICE
             continue
         targets[app] = FEX_TOOL
