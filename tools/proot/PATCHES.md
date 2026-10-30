@@ -138,6 +138,10 @@ Old kernel fixes:
   by the kernel instead. The original clone flags are preserved. When the kernel supplies a valid
   ID in the notification, normal setup is unchanged. No timers or background polling are added.
   Completely missing notifications and ambiguous matches for separate processes are not recovered.
+- `0024-clone3-enosys-old-kernels.patch` - `clone3` arrived in Linux 5.3. On a 4.19 kernel (Xiaomi
+  SM8250 with a recent Android) it answered `EINVAL`, and glibc falls back to `clone` only on `ENOSYS`,
+  so every `pthread_create` failed and gamescope, zstd and pipewire aborted. On kernels before 5.3 the
+  filter traces `clone3` and PRoot answers `ENOSYS`; newer kernels do not trace it.
 
 Development diagnostics:
 

@@ -1,0 +1,99 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: DroidDeck <noreply@droiddeck.invalid>
+Date: Fri, 30 Oct 2026 12:00:00 -0400
+Subject: [PATCH] syscall: answer clone3 with ENOSYS on kernels before 5.3
+
+clone3 arrived in Linux 5.3. On a 4.19 kernel (Xiaomi SM8250 with a recent
+Android) clone3 answered EINVAL, and glibc falls back to clone only on
+ENOSYS, so pthread_create failed everywhere and gamescope, zstd and
+pipewire aborted. On kernels before 5.3 the filter now traces clone3 and
+PRoot answers ENOSYS; newer kernels do not trace it at all.
+---
+diff --git a/src/syscall/enter.c b/src/syscall/enter.c
+index f8ce2e7..67ff30a 100644
+--- a/src/syscall/enter.c
++++ b/src/syscall/enter.c
+@@ -30,6 +30,8 @@
+ #include <string.h>      /* strcpy */
+ #include <sys/prctl.h>   /* PR_SET_DUMPABLE */
+ #include <termios.h>     /* TCSETS, TCSANOW */
++#include <stdio.h>       /* sscanf(3), */
++#include <sys/utsname.h> /* uname(2), */
+ 
+ #include "cli/note.h"
+ #include "syscall/syscall.h"
+@@ -94,6 +96,22 @@ static int translate_sysarg(Tracee *tracee, Reg reg, Type type)
+  * -errno if an error occured from the tracee's point-of-view (EFAULT
+  * for instance), otherwise 0.
+  */
++/**
++ * clone3 arrived in Linux 5.3. Older kernels, some with a partial backport that answers EINVAL, must
++ * answer ENOSYS so glibc falls back to clone; otherwise no thread can be created.
++ */
++bool kernel_lacks_clone3(void)
++{
++	static int lacks = -1;
++	struct utsname utsname;
++	int major, minor;
++
++	if (lacks < 0)
++		lacks = uname(&utsname) == 0 && sscanf(utsname.release, "%d.%d", &major, &minor) == 2 &&
++			(major < 5 || (major == 5 && minor < 3));
++	return lacks;
++}
++
+ int translate_syscall_enter(Tracee *tracee)
+ {
+ 	int flags;
+@@ -551,6 +569,11 @@ int translate_syscall_enter(Tracee *tracee)
+ 		status = -ENOSYS;
+ 		break;
+ 
++	case PR_clone3:
++		if (kernel_lacks_clone3())
++			status = -ENOSYS;
++		break;
++
+ 	case PR_inotify_add_watch:
+ 		flags = peek_reg(tracee, CURRENT, SYSARG_3);
+ 
+diff --git a/src/syscall/seccomp.c b/src/syscall/seccomp.c
+index fca220b..7f6b76f 100644
+--- a/src/syscall/seccomp.c
++++ b/src/syscall/seccomp.c
+@@ -781,6 +781,11 @@ static void drop_unneeded_exit_stops(void)
+ 	}
+ }
+ 
++static FilteredSysnum old_kernel_sysnums[] = {
++	{ PR_clone3,		0 },
++	FILTERED_SYSNUM_END,
++};
++
+ static int collect_filtered_sysnums(TALLOC_CTX *context, const Tracee *tracee,
+ 				FilteredSysnum **filtered_sysnums)
+ {
+@@ -795,6 +800,12 @@ static int collect_filtered_sysnums(TALLOC_CTX *context, const Tracee *tracee,
+ 	if (status < 0)
+ 		return status;
+ 
++	if (kernel_lacks_clone3()) {
++		status = merge_filtered_sysnums(context, filtered_sysnums, old_kernel_sysnums);
++		if (status < 0)
++			return status;
++	}
++
+ 	/* Merge the sysnums required by the extensions to the list
+ 	 * of filtered sysnums.  */
+ 	if (tracee->extensions != NULL) {
+diff --git a/src/syscall/syscall.h b/src/syscall/syscall.h
+index e255cc8..9f7fc2d 100644
+--- a/src/syscall/syscall.h
++++ b/src/syscall/syscall.h
+@@ -35,5 +35,6 @@ extern int set_sysarg_data(Tracee *tracee, const void *tracer_ptr, word_t size,
+ extern void translate_syscall(Tracee *tracee);
+ extern int  translate_syscall_enter(Tracee *tracee);
+ extern void translate_syscall_exit(Tracee *tracee);
++extern bool kernel_lacks_clone3(void);
+ 
+ #endif /* SYSCALL_H */
