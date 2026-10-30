@@ -46,6 +46,8 @@ unseal() {
 }
 
 stage runtime
+missing=$(sudo chroot "$root" ldconfig -p | awk 'NR > 1 { print $1 }' | sort -u | comm -13 - <(sort -u "$here/../fex/runtime-libs.txt"))
+[ -z "$missing" ] || { echo "FEX expects these from the runtime (tools/fex/runtime-libs.txt); add their packages to packages-runtime.txt:" $missing >&2; exit 1; }
 seal
 sudo mv "$root/tmp/droiddeck" "$work/src-keep"
 sudo chroot "$root" dpkg-query -W -f '${Package} ${Version}\n' > "$out/$runtime_id.packages.txt"
