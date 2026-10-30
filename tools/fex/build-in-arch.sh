@@ -60,9 +60,10 @@ cmake -S fex-src -B fex-build -G Ninja \
 ninja -C fex-build
 DESTDIR="$WORK/out" ninja -C fex-build install
 install -Dm755 /usr/bin/unsquashfs out/usr/local/bin/unsquashfs
-# The Linux runtime has no xxhash and no ld.so.cache: the library goes beside libFEXCore and the programs
-# that need it find it through RUNPATH.
+# The Linux runtime has neither xxhash nor lzo (unsquashfs) and no ld.so.cache: the libraries go beside
+# libFEXCore and the programs that need them find them through RUNPATH.
 install -Dm644 "$(readlink -f /usr/lib/libxxhash.so.0)" out/usr/local/lib/libxxhash.so.0
+install -Dm644 "$(readlink -f /usr/lib/liblzo2.so.2)" out/usr/local/lib/liblzo2.so.2
 bundled=$(cd out/usr/local/lib && ls -- *.so* | sort -u)
 for f in out/usr/local/bin/*; do
   [ -L "$f" ] && continue
