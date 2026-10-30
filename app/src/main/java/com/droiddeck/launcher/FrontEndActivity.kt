@@ -2557,7 +2557,16 @@ class FrontEndActivity : ComponentActivity() {
     }
 
     private fun onRuntimeButton() {
-        if (runtimeChangesBlocked()) return
+        runtimeChangesBlocker()?.let { blocker ->
+            Log.i(TAG, "runtime: button held back by $blocker")
+            val message = when {
+                blocker.startsWith("session") -> R.string.upd_stop_session
+                blocker == "compatibility tool install" -> R.string.main_wait_proton_install
+                else -> R.string.main_wait_runtime
+            }
+            android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
+            return
+        }
         val release = available
         if (removalPending) {
             showRemove = true
@@ -2627,11 +2636,18 @@ class FrontEndActivity : ComponentActivity() {
         }
     }
 
-    private fun runtimeChangesBlocked(): Boolean =
-        busy || LinuxRuntimeInstaller.isBusy() || SessionState.running ||
-            SessionState.phase !in setOf(SessionPhase.IDLE, SessionPhase.FAILED) ||
-            protons.protonBusyId != null || ProtonExtras.installInProgress || pkgStage != null || componentsQueueBusy ||
-            components.compBusy != null || saveBusy != null || com.droiddeck.launcher.store.UserAppsState.working != null
+    private fun runtimeChangesBlocker(): String? = when {
+        busy || LinuxRuntimeInstaller.isBusy() -> "runtime operation"
+        SessionState.running || SessionState.phase !in setOf(SessionPhase.IDLE, SessionPhase.FAILED) -> "session ${SessionState.phase}"
+        protons.protonBusyId != null || ProtonExtras.installInProgress -> "compatibility tool install"
+        pkgStage != null -> "package operation"
+        componentsQueueBusy || components.compBusy != null -> "components"
+        saveBusy != null -> "cloud saves"
+        com.droiddeck.launcher.store.UserAppsState.working != null -> "user apps"
+        else -> null
+    }
+
+    private fun runtimeChangesBlocked(): Boolean = runtimeChangesBlocker() != null
 
     private fun removeDesktop() {
         if (runtimeChangesBlocked()) return
