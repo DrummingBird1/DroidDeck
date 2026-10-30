@@ -220,7 +220,7 @@ program_cores() {
   [ "${BL_PIN_CORES:-1}" = 0 ] && return 0
   command -v taskset >/dev/null 2>&1 || return 0
   if [ -n "${BL_GAME_CPUS:-}" ]; then echo "$BL_GAME_CPUS"; return 0; fi
-  local f n max min= list=
+  local f n max min= list= fast=0 total=0
   for f in /sys/devices/system/cpu/cpu[0-9]*/cpufreq/cpuinfo_max_freq; do
     max=$(cat "$f" 2>/dev/null) || continue
     [ -z "$min" ] || [ "$max" -lt "$min" ] && min=$max
@@ -229,8 +229,12 @@ program_cores() {
   for f in /sys/devices/system/cpu/cpu[0-9]*/cpufreq/cpuinfo_max_freq; do
     max=$(cat "$f" 2>/dev/null) || continue
     n=${f#/sys/devices/system/cpu/cpu}; n=${n%%/*}
-    [ "$max" -gt "$min" ] && list="$list${list:+,}$n"
+    total=$((total + 1))
+    [ "$max" -gt "$min" ] && { list="$list${list:+,}$n"; fast=$((fast + 1)); }
   done
+  # Leaving out the slowest cluster is for efficiency cores; SoCs without them (2 prime + 6 performance cores)
+  # would leave a program only the two prime cores.
+  [ $((fast * 2)) -ge "$total" ] || return 0
   echo "$list"
 }
 
