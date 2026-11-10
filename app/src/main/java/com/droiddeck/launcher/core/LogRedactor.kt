@@ -101,6 +101,10 @@ object LogRedactor {
     private val LONG_TOKEN = Regex("[A-Za-z0-9_\\-]{88,}")
     private val STEAMID64 = Regex("\\b(76561)(\\d{8})(\\d{4})\\b")
     private val STEAMID3 = Regex("\\[U:1:(\\d+)]")
+    private val STEAM_ACCOUNT_PATH = Regex("(?i)(Steam Controller Configs|/userdata)/(\\d{4,})(?=[/\\s\"'<>]|$)")
+    private val COUNTRY = Regex("\\b(COUNTRY=)[A-Za-z]{2}\\b")
+    private val STORAGE_VOLUME = Regex("(/storage/)(?!emulated\\b|self\\b)[A-Za-z0-9]{4}-[A-Za-z0-9]{4}(?![A-Za-z0-9])")
+    private val CONTROLLER_ID = Regex("(?<![0-9A-Za-z-])[0-9a-f]{3,4}-[0-9a-f]{3,4}(?:-[0-9a-f]{1,8}){2,}(?![0-9A-Za-z-])")
     private val EXTERNAL_ADDR = Regex("(?i)(external\\s+(?:ip\\s+)?address\\s*[:=]?\\s*|external\\s+ip\\s*[:=]?\\s*)([0-9A-Fa-f:.]{7,})")
     private val IPV4 = Regex("(?<![0-9.])(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})(?![0-9.])")
     private val IPV6 = Regex("(?<![0-9A-Za-z:])[0-9A-Fa-f]{0,4}(?::[0-9A-Fa-f]{0,4}){2,7}(?:%[A-Za-z0-9_.]+)?(?![0-9A-Za-z:])")
@@ -278,7 +282,7 @@ object LogRedactor {
         true
     }
 
-    const val RULES_VERSION = 3
+    const val RULES_VERSION = 4
 
     private val LAN_IPV4 = Regex(
         "(?<![\\d.])(?:10\\.\\d{1,3}|192\\.168|172\\.(?:1[6-9]|2\\d|3[01])|169\\.254)\\.\\d{1,3}\\.\\d{1,3}(?!\\.?\\d)"
@@ -486,6 +490,12 @@ object LogRedactor {
                 val id = m.group(1)
                 "[U:1:${if (id.length > 4) "*".repeat(id.length - 4) + id.takeLast(4) else id}]"
             })
+            if (out.has("steam controller configs", "/userdata/")) {
+                out.set(replaceMatches(out.text, STEAM_ACCOUNT_PATH) { "${it.group(1)}/<redacted:account>" })
+            }
+            if ("COUNTRY=" in out.text) out.set(replaceMatches(out.text, COUNTRY) { "${it.group(1)}<redacted:country>" })
+            if ("/storage/" in out.text) out.set(replaceMatches(out.text, STORAGE_VOLUME) { "${it.group(1)}<redacted:volume>" })
+            if (out.holds('-', 3)) out.set(replaceMatches(out.text, CONTROLLER_ID, "<redacted:controller>"))
             if (out.has("external")) out.set(replaceMatches(out.text, EXTERNAL_ADDR) { "${it.group(1)}<redacted:ip>" })
             for (r in own) if (r.needs == null || out.has(r.needs)) out.set(replaceMatches(out.text, r.regex, "<redacted:ip>"))
             if (out.has("onloginstatechange")) out.set(replaceMatches(out.text, LOGIN_STATE) { "${it.group(1)}<redacted:account>" })

@@ -400,4 +400,23 @@ class LogRedactorTest {
             root.deleteRecursively()
         }
     }
+
+    @Test fun steamAccountIdInConfigPathIsRedacted() {
+        val out = LogRedactor.redact("/root/.steam/Steam Controller Configs/123456789/config/x.vdf")
+        assertFalse(out.contains("123456789"))
+        assertTrue(out.contains("Steam Controller Configs/<redacted:account>/config/x.vdf"))
+    }
+
+    @Test fun countryCodeIsRedacted() {
+        assertEquals("COUNTRY=<redacted:country>", LogRedactor.redact("COUNTRY=IL"))
+    }
+
+    @Test fun storageVolumeIdIsRedactedButEmulatedIsKept() {
+        assertEquals("/storage/<redacted:volume>/Android", LogRedactor.redact("/storage/1A2B-3C4D/Android"))
+        assertEquals("/storage/emulated/0/x", LogRedactor.redact("/storage/emulated/0/x"))
+    }
+
+    @Test fun syntheticControllerIdIsRedacted() {
+        assertEquals("pad <redacted:controller> ok", LogRedactor.redact("pad 45e-28e-0-0 ok"))
+    }
 }
