@@ -861,11 +861,11 @@ class LaunchTest(Harness):
             self.assertTrue(BNET["follow"]("/pfx", poll=0, grace=15, ask=lambda: asks.append(1)))
         self.assertEqual(len(asks), 2)
 
-    def test_battle_net_is_asked_at_most_three_times(self):
+    def test_battle_net_is_asked_again_until_its_window_ends(self):
         up = self.clients()
         self.states = [up] * 6 + [[], []]
         asks = []
-        times = iter([0, 20, 40, 60, 80, 100, 101, 130])
+        times = iter([0, 100, 200, 300, 310, 320, 321, 340])
         with mock.patch.object(BNET["time"], "monotonic", lambda: next(times)):
             self.assertFalse(BNET["follow"]("/pfx", poll=0, grace=15, ask=lambda: asks.append(1)))
         self.assertEqual(len(asks), 2)

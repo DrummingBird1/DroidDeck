@@ -54,7 +54,7 @@ READY_SETTLE = 5
 CLIENT_WAIT = 300
 GAME_GRACE = 15
 LAUNCH_WAIT = 15
-LAUNCH_ASKS = 3
+LAUNCH_WINDOW = 300
 CLIENT_PATH = re.compile(r"[a-z]:\\(program files \(x86\)\\battle\.net\\([^\\]+$|battle\.net\.\d+\\)|programdata\\battle\.net\\)")
 IDLE = {"agent.exe", "conhost.exe", "explorer.exe", "lsass.exe", "plugplay.exe", "rpcss.exe", "services.exe",
         "start.exe", "steam.exe", "svchost.exe", "tabtip.exe", "winedevice.exe", "wineserver"}
@@ -996,7 +996,7 @@ def wait_ready(pfx, wait=None, poll=None, settle=None):
 
 def follow(pfx, poll=None, grace=None, tidy=None, ask=None):
     seen, gone_at = False, None
-    asked, asks = None, 1
+    started, asked = None, None
     grace = GAME_GRACE if grace is None else grace
     tidy = Tidy() if tidy is None else tidy
     while True:
@@ -1017,11 +1017,12 @@ def follow(pfx, poll=None, grace=None, tidy=None, ask=None):
                 return seen
         else:
             gone_at = None
+            started = now if started is None else started
             asked = now if asked is None else asked
-            if ask is not None and asks < LAUNCH_ASKS and now - asked >= LAUNCH_WAIT:
+            if ask is not None and now - started < LAUNCH_WINDOW and now - asked >= LAUNCH_WAIT:
                 say("Battle.net has not started the game yet; asking again")
                 ask()
-                asked, asks = now, asks + 1
+                asked = now
         time.sleep(POLL if poll is None else poll)
 
 
