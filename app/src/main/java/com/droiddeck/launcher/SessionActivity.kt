@@ -2005,36 +2005,42 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
         Thread({
             var failedComponent: String? = null
             var problem: String? = null
-            if (runtime) {
-                problem = installRuntime()
-                if (problem == null) SessionEvents.record("runtime.ready") else failedComponent = "runtime"
-            }
-            if (problem == null && resume && !SessionState.stopRequested) {
-                if (activeInstallWorker === worker) SessionState.installing = "package"
-                SessionEvents.transition(SessionPhase.INSTALLING_RUNTIME, "package.resuming", mapOf("component" to "package"))
-                val cancellation = com.droiddeck.launcher.core.Downloader.Cancellation { SessionState.stopRequested }
-                SessionState.installCancellation = cancellation
-                problem = try {
-                    com.droiddeck.launcher.runtime.DesktopCatalog.resumeInterrupted(this, cancellation, progressAsIs())
-                        ?.let { getString(R.string.session_package_resume_failed, it) }
-                } finally {
-                    if (SessionState.installCancellation === cancellation) SessionState.installCancellation = null
+            try {
+                if (runtime) {
+                    problem = installRuntime()
+                    if (problem == null) SessionEvents.record("runtime.ready") else failedComponent = "runtime"
                 }
-                if (problem == null) SessionEvents.record("package.ready") else failedComponent = "package"
-            }
-            if (problem == null && desktop && !SessionState.stopRequested &&
-                !((runtime || resume) && com.droiddeck.launcher.runtime.DesktopCatalog.desktopInstalled(this))) {
-                if (activeInstallWorker === worker) SessionState.installing = "desktop"
-                SessionEvents.transition(SessionPhase.INSTALLING_RUNTIME, "desktop.installing", mapOf("component" to "desktop"))
-                problem = installDesktop()
-                if (problem == null) SessionEvents.record("desktop.ready") else failedComponent = "desktop"
-            }
-            if (problem == null && proton && !SessionState.stopRequested) {
-                if (activeInstallWorker === worker) SessionState.installing = "proton"
-                SessionEvents.transition(SessionPhase.INSTALLING_RUNTIME, "proton.installing", mapOf("component" to "proton"))
-                val protonProblem = installProton()
-                if (protonProblem == null) SessionEvents.record("proton.ready")
-                else SessionEvents.record("proton.skipped", mapOf("reason" to protonProblem))
+                if (problem == null && resume && !SessionState.stopRequested) {
+                    if (activeInstallWorker === worker) SessionState.installing = "package"
+                    SessionEvents.transition(SessionPhase.INSTALLING_RUNTIME, "package.resuming", mapOf("component" to "package"))
+                    val cancellation = com.droiddeck.launcher.core.Downloader.Cancellation { SessionState.stopRequested }
+                    SessionState.installCancellation = cancellation
+                    problem = try {
+                        com.droiddeck.launcher.runtime.DesktopCatalog.resumeInterrupted(this, cancellation, progressAsIs())
+                            ?.let { getString(R.string.session_package_resume_failed, it) }
+                    } finally {
+                        if (SessionState.installCancellation === cancellation) SessionState.installCancellation = null
+                    }
+                    if (problem == null) SessionEvents.record("package.ready") else failedComponent = "package"
+                }
+                if (problem == null && desktop && !SessionState.stopRequested &&
+                    !((runtime || resume) && com.droiddeck.launcher.runtime.DesktopCatalog.desktopInstalled(this))) {
+                    if (activeInstallWorker === worker) SessionState.installing = "desktop"
+                    SessionEvents.transition(SessionPhase.INSTALLING_RUNTIME, "desktop.installing", mapOf("component" to "desktop"))
+                    problem = installDesktop()
+                    if (problem == null) SessionEvents.record("desktop.ready") else failedComponent = "desktop"
+                }
+                if (problem == null && proton && !SessionState.stopRequested) {
+                    if (activeInstallWorker === worker) SessionState.installing = "proton"
+                    SessionEvents.transition(SessionPhase.INSTALLING_RUNTIME, "proton.installing", mapOf("component" to "proton"))
+                    val protonProblem = installProton()
+                    if (protonProblem == null) SessionEvents.record("proton.ready")
+                    else SessionEvents.record("proton.skipped", mapOf("reason" to protonProblem))
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "install worker failed", e)
+                problem = e.message ?: e.javaClass.simpleName
+                failedComponent = failedComponent ?: if (runtime) "runtime" else if (desktop) "desktop" else "package"
             }
             uiHandler.post {
                 localInstalling = false
