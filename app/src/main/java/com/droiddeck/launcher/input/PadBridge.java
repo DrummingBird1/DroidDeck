@@ -554,8 +554,11 @@ public final class PadBridge {
     }
 
     static float keyTrigger(float current, boolean pressed, int repeatCount, boolean analog) {
-        if (analog || repeatCount > 0) return current;
-        return pressed ? 1f : 0f;
+        if (repeatCount > 0) return current;
+        if (!analog) return pressed ? 1f : 0f;
+        // A digital-mode trigger still advertises its analog axes but leaves them at zero; only its key reports the press.
+        if (pressed) return current > 0f ? current : 1f;
+        return current == 1f ? 0f : current;
     }
 
     static boolean analogTrigger(InputDevice device, int... axes) {

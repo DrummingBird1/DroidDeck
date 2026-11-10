@@ -153,6 +153,9 @@ class PadPartialAxesTest {
         assertEquals(0.25f, PadBridge.keyTrigger(0.25f, true, 1, false))
         assertEquals(0.25f, PadBridge.keyTrigger(0.25f, true, 0, true))
         assertEquals(0.25f, PadBridge.keyTrigger(0.25f, false, 0, true))
+        assertEquals(1f, PadBridge.keyTrigger(0f, true, 0, true))
+        assertEquals(0f, PadBridge.keyTrigger(1f, false, 0, true))
+        assertEquals(1f, PadBridge.keyTrigger(1f, true, 1, true))
     }
 
     private fun pad(): PadState = requireNotNull(JoyConPadTest.RecordingWriter.pads[0])
