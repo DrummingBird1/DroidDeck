@@ -752,6 +752,8 @@
     <string name="drawer_relative_mouse_off">關</string>
     <string name="drawer_pc_keyboard">電腦鍵盤</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">點按文字欄位時開啟鍵盤</string>
+    <string name="drawer_text_field_keyboard_hint">點按文字欄位會開啟 Android 鍵盤。關閉後，請使用角落的鍵盤按鈕。</string>
     <string name="drawer_second_screen">第二螢幕</string>
     <string name="drawer_second_screen_mode">模式</string>
     <string name="drawer_second_screen_shows">顯示</string>

@@ -438,6 +438,12 @@ object SessionPrefs {
         prefs(context).edit().putBoolean("directCursor", on).apply()
     }
 
+    fun desktopTextFieldKeyboard(context: Context): Boolean = prefs(context).getBoolean("desktopTextFieldKeyboard", true)
+
+    fun setDesktopTextFieldKeyboard(context: Context, on: Boolean) {
+        prefs(context).edit().putBoolean("desktopTextFieldKeyboard", on).apply()
+    }
+
     fun backHold(context: Context): Boolean = prefs(context).getBoolean("backHold", true)
 
     fun setBackHold(context: Context, on: Boolean) {

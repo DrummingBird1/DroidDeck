@@ -762,6 +762,8 @@
     <string name="drawer_relative_mouse_off">إيقاف</string>
     <string name="drawer_pc_keyboard">لوحة مفاتيح الكمبيوتر</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">فتح لوحة المفاتيح عند حقول النص</string>
+    <string name="drawer_text_field_keyboard_hint">يؤدي النقر على حقل نص إلى فتح لوحة مفاتيح Android. عند إيقاف هذا الخيار، استخدم زر لوحة المفاتيح في الزاوية.</string>
     <string name="drawer_second_screen">الشاشة الثانية</string>
     <string name="drawer_second_screen_mode">الوضع</string>
     <string name="drawer_second_screen_shows">يعرض</string>

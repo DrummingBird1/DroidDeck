@@ -758,6 +758,8 @@
     <string name="drawer_relative_mouse_off">Vypnuto</string>
     <string name="drawer_pc_keyboard">Klávesnice PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Otevírat klávesnici v textových polích</string>
+    <string name="drawer_text_field_keyboard_hint">Klepnutím na textové pole se otevře klávesnice Androidu. Když je volba vypnutá, použijte tlačítko klávesnice v rohu.</string>
     <string name="drawer_second_screen">Druhá obrazovka</string>
     <string name="drawer_second_screen_mode">Režim</string>
     <string name="drawer_second_screen_shows">Zobrazuje</string>

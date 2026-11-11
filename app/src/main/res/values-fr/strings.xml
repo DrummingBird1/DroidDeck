@@ -756,6 +756,8 @@
     <string name="drawer_relative_mouse_off">Désactivé</string>
     <string name="drawer_pc_keyboard">Clavier PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Ouvrir le clavier sur les champs de texte</string>
+    <string name="drawer_text_field_keyboard_hint">Toucher un champ de texte ouvre le clavier Android. Si l\'option est désactivée, utilisez le bouton clavier dans le coin.</string>
     <string name="drawer_second_screen">Deuxième écran</string>
     <string name="drawer_second_screen_mode">Mode</string>
     <string name="drawer_second_screen_shows">Afficher</string>

@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Av</string>
     <string name="drawer_pc_keyboard">PC-tangentbord</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Öppna tangentbordet i textfält</string>
+    <string name="drawer_text_field_keyboard_hint">När du trycker på ett textfält öppnas Android-tangentbordet. När det är av använder du tangentbordsknappen i hörnet.</string>
     <string name="drawer_second_screen">Andra skärmen</string>
     <string name="drawer_second_screen_mode">Läge</string>
     <string name="drawer_second_screen_shows">Visar</string>

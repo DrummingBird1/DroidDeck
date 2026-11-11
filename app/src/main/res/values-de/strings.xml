@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Aus</string>
     <string name="drawer_pc_keyboard">PC-Tastatur</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Tastatur bei Textfeldern öffnen</string>
+    <string name="drawer_text_field_keyboard_hint">Tippen auf ein Textfeld öffnet die Android-Tastatur. Ist dies aus, nutze die Tastatur-Schaltfläche in der Ecke.</string>
     <string name="drawer_second_screen">Zweiter Bildschirm</string>
     <string name="drawer_second_screen_mode">Modus</string>
     <string name="drawer_second_screen_shows">Zeigt</string>

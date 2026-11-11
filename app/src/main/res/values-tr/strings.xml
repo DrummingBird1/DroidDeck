@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Kapalı</string>
     <string name="drawer_pc_keyboard">PC klavyesi</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Metin alanlarında klavyeyi aç</string>
+    <string name="drawer_text_field_keyboard_hint">Bir metin alanına dokunmak Android klavyesini açar. Kapalıyken köşedeki klavye düğmesini kullanın.</string>
     <string name="drawer_second_screen">İkinci ekran</string>
     <string name="drawer_second_screen_mode">Mod</string>
     <string name="drawer_second_screen_shows">Gösterilen</string>

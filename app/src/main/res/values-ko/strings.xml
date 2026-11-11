@@ -752,6 +752,8 @@
     <string name="drawer_relative_mouse_off">끄기</string>
     <string name="drawer_pc_keyboard">PC 키보드</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">텍스트 필드에서 키보드 열기</string>
+    <string name="drawer_text_field_keyboard_hint">텍스트 필드를 탭하면 Android 키보드가 열립니다. 끄면 모서리의 키보드 버튼을 사용하세요.</string>
     <string name="drawer_second_screen">보조 화면</string>
     <string name="drawer_second_screen_mode">모드</string>
     <string name="drawer_second_screen_shows">표시</string>

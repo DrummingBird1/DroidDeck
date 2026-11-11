@@ -758,6 +758,8 @@
     <string name="drawer_relative_mouse_off">Wyłączone</string>
     <string name="drawer_pc_keyboard">Klawiatura PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Otwieraj klawiaturę w polach tekstowych</string>
+    <string name="drawer_text_field_keyboard_hint">Dotknięcie pola tekstowego otwiera klawiaturę Android. Gdy ta opcja jest wyłączona, użyj przycisku klawiatury w rogu.</string>
     <string name="drawer_second_screen">Drugi ekran</string>
     <string name="drawer_second_screen_mode">Tryb</string>
     <string name="drawer_second_screen_shows">Pokazuje</string>

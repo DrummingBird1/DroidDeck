@@ -758,6 +758,8 @@
     <string name="drawer_relative_mouse_off">Вимкнено</string>
     <string name="drawer_pc_keyboard">Клавіатура ПК</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Відкривати клавіатуру в текстових полях</string>
+    <string name="drawer_text_field_keyboard_hint">Дотик до текстового поля відкриває клавіатуру Android. Якщо вимкнено, скористайтеся кнопкою клавіатури в куті.</string>
     <string name="drawer_second_screen">Другий екран</string>
     <string name="drawer_second_screen_mode">Режим</string>
     <string name="drawer_second_screen_shows">Показує</string>

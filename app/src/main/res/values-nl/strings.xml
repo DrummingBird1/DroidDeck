@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Uit</string>
     <string name="drawer_pc_keyboard">Pc-toetsenbord</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Toetsenbord openen bij tekstvelden</string>
+    <string name="drawer_text_field_keyboard_hint">Tikken op een tekstveld opent het Android-toetsenbord. Staat dit uit, gebruik dan de toetsenbordknop in de hoek.</string>
     <string name="drawer_second_screen">Tweede scherm</string>
     <string name="drawer_second_screen_mode">Modus</string>
     <string name="drawer_second_screen_shows">Toont</string>

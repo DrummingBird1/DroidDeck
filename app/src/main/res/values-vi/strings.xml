@@ -752,6 +752,8 @@
     <string name="drawer_relative_mouse_off">Tắt</string>
     <string name="drawer_pc_keyboard">Bàn phím PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Mở bàn phím ở ô văn bản</string>
+    <string name="drawer_text_field_keyboard_hint">Chạm vào ô văn bản sẽ mở bàn phím Android. Khi tắt, hãy dùng nút bàn phím ở góc.</string>
     <string name="drawer_second_screen">Màn hình thứ hai</string>
     <string name="drawer_second_screen_mode">Chế độ</string>
     <string name="drawer_second_screen_shows">Hiển thị</string>

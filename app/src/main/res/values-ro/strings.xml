@@ -756,6 +756,8 @@
     <string name="drawer_relative_mouse_off">Oprit</string>
     <string name="drawer_pc_keyboard">Tastatură de PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Deschide tastatura în câmpurile de text</string>
+    <string name="drawer_text_field_keyboard_hint">Atingerea unui câmp de text deschide tastatura Android. Când opțiunea este dezactivată, folosește butonul de tastatură din colț.</string>
     <string name="drawer_second_screen">Al doilea ecran</string>
     <string name="drawer_second_screen_mode">Mod</string>
     <string name="drawer_second_screen_shows">Arată</string>

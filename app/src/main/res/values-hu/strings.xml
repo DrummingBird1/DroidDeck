@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Ki</string>
     <string name="drawer_pc_keyboard">PC-billentyűzet</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Billentyűzet megnyitása szövegmezőknél</string>
+    <string name="drawer_text_field_keyboard_hint">Szövegmezőre koppintva megnyílik az Android billentyűzet. Kikapcsolva használja a sarokban lévő billentyűzetgombot.</string>
     <string name="drawer_second_screen">Második képernyő</string>
     <string name="drawer_second_screen_mode">Mód</string>
     <string name="drawer_second_screen_shows">Megjelenít</string>

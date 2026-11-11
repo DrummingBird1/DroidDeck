@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">बंद</string>
     <string name="drawer_pc_keyboard">पीसी कीबोर्ड</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">टेक्स्ट फ़ील्ड पर कीबोर्ड खोलें</string>
+    <string name="drawer_text_field_keyboard_hint">टेक्स्ट फ़ील्ड पर टैप करने से Android कीबोर्ड खुलता है। बंद होने पर कोने में दिए कीबोर्ड बटन का उपयोग करें।</string>
     <string name="drawer_second_screen">दूसरी स्क्रीन</string>
     <string name="drawer_second_screen_mode">मोड</string>
     <string name="drawer_second_screen_shows">दिखाता है</string>

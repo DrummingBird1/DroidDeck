@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Ανενεργό</string>
     <string name="drawer_pc_keyboard">Πληκτρολόγιο PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Άνοιγμα πληκτρολογίου σε πεδία κειμένου</string>
+    <string name="drawer_text_field_keyboard_hint">Πατώντας σε ένα πεδίο κειμένου ανοίγει το πληκτρολόγιο Android. Όταν είναι απενεργοποιημένο, χρησιμοποιήστε το κουμπί πληκτρολογίου στη γωνία.</string>
     <string name="drawer_second_screen">Δεύτερη οθόνη</string>
     <string name="drawer_second_screen_mode">Λειτουργία</string>
     <string name="drawer_second_screen_shows">Εμφανίζει</string>

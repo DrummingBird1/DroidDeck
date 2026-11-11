@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Pois</string>
     <string name="drawer_pc_keyboard">PC-näppäimistö</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Avaa näppäimistö tekstikentissä</string>
+    <string name="drawer_text_field_keyboard_hint">Tekstikentän napauttaminen avaa Android-näppäimistön. Kun asetus on pois päältä, käytä kulmassa olevaa näppäimistöpainiketta.</string>
     <string name="drawer_second_screen">Toinen näyttö</string>
     <string name="drawer_second_screen_mode">Tila</string>
     <string name="drawer_second_screen_shows">Näyttää</string>

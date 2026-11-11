@@ -756,6 +756,8 @@
     <string name="drawer_relative_mouse_off">Desativado</string>
     <string name="drawer_pc_keyboard">Teclado de PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Abrir o teclado em campos de texto</string>
+    <string name="drawer_text_field_keyboard_hint">Tocar em um campo de texto abre o teclado do Android. Quando desativado, use o botão do teclado no canto.</string>
     <string name="drawer_second_screen">Segunda tela</string>
     <string name="drawer_second_screen_mode">Modo</string>
     <string name="drawer_second_screen_shows">Mostra</string>

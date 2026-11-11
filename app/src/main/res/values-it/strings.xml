@@ -756,6 +756,8 @@
     <string name="drawer_relative_mouse_off">Disattivato</string>
     <string name="drawer_pc_keyboard">Tastiera PC</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Apri la tastiera nei campi di testo</string>
+    <string name="drawer_text_field_keyboard_hint">Toccando un campo di testo si apre la tastiera Android. Se disattivato, usa il pulsante della tastiera nell\'angolo.</string>
     <string name="drawer_second_screen">Secondo schermo</string>
     <string name="drawer_second_screen_mode">Modalità</string>
     <string name="drawer_second_screen_shows">Mostra</string>

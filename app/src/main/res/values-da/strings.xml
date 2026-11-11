@@ -754,6 +754,8 @@
     <string name="drawer_relative_mouse_off">Fra</string>
     <string name="drawer_pc_keyboard">PC-tastatur</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">Åbn tastaturet i tekstfelter</string>
+    <string name="drawer_text_field_keyboard_hint">Når du trykker på et tekstfelt, åbnes Android-tastaturet. Når det er slået fra, kan du bruge tastaturknappen i hjørnet.</string>
     <string name="drawer_second_screen">Anden skærm</string>
     <string name="drawer_second_screen_mode">Tilstand</string>
     <string name="drawer_second_screen_shows">Viser</string>

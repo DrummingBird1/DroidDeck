@@ -270,6 +270,8 @@ class DrawerActions(
     val wowChatShown: Boolean = false,
     val wowChat: String? = null,
     val onWowChat: (String?) -> Unit = {},
+    val desktopTextFieldKeyboard: Boolean = true,
+    val onDesktopTextFieldKeyboard: (Boolean) -> Unit = {},
     val onSteamMenu: (() -> Unit)?,
     val onQam: (() -> Unit)?,
     val onAchievements: (() -> Unit)? = null,
@@ -700,6 +702,9 @@ internal fun SessionDrawer(open: Boolean, requestedPage: SessionDrawerPage, cont
                                         host.open = null; a.onKeyboard()
                                     }
                                 }
+                                if (a.desktop) ToggleRow(host, "desktop-text-field-keyboard", stringResource(R.string.drawer_text_field_keyboard),
+                                    stringResource(R.string.drawer_text_field_keyboard_hint), a.desktopTextFieldKeyboard,
+                                    chipModifier = focus.track(page, "desktop-text-field-keyboard"), onChange = a.onDesktopTextFieldKeyboard)
                                 if (a.wowChatShown) ChoiceRow(
                                     host, "wow-chat", stringResource(R.string.wow_chat_title), null,
                                     listOf(

@@ -752,6 +752,8 @@
     <string name="drawer_relative_mouse_off">オフ</string>
     <string name="drawer_pc_keyboard">PCキーボード</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">テキスト欄でキーボードを開く</string>
+    <string name="drawer_text_field_keyboard_hint">テキスト欄をタップするとAndroidキーボードが開きます。オフのときは、隅のキーボードボタンを使ってください。</string>
     <string name="drawer_second_screen">セカンドスクリーン</string>
     <string name="drawer_second_screen_mode">モード</string>
     <string name="drawer_second_screen_shows">表示</string>

@@ -485,6 +485,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
     private var lowLatency by mutableStateOf(true)
     private var evdevMouseOn by mutableStateOf(false)
     private var directCursorOn by mutableStateOf(false)
+    private var desktopTextFieldKeyboardOn by mutableStateOf(true)
     private var mouseWriter: com.droiddeck.launcher.input.FakeInputWriter? = null
     private var evdevMouseActive = false
     private var lastMouseX = Float.NaN
@@ -1306,6 +1307,11 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
             wowChatShown = com.droiddeck.launcher.ui.WowChat.isWow(AgentGuest.gameProgram),
             wowChat = wowChat.remembered,
             onWowChat = wowChat::choose,
+            desktopTextFieldKeyboard = desktopTextFieldKeyboardOn,
+            onDesktopTextFieldKeyboard = { on ->
+                SessionPrefs.setDesktopTextFieldKeyboard(this@SessionActivity, on)
+                desktopTextFieldKeyboardOn = on
+            },
             controller = controllerSettings,
             onRumble = { on -> updateControllerPrefs { ControllerPrefs.setRumble(this@SessionActivity, on) } },
             onSteamMenu = if (SessionState.mode == SessionService.MODE_STEAM) ({ sendSteamGuide() }) else null,
@@ -1983,6 +1989,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
         evdevMouseOn = SessionPrefs.evdevMouse(this)
         if (!evdevMouseOn) releaseEvdevMouse()
         directCursorOn = SessionPrefs.directCursor(this)
+        desktopTextFieldKeyboardOn = SessionPrefs.desktopTextFieldKeyboard(this)
         padType = SessionPrefs.steamController(this)
     }
 
@@ -4476,7 +4483,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
         val host = keyboard
         if (host != null && desktopTextInput()) {
             val tapped = android.os.SystemClock.uptimeMillis() - lastUserPressMs < TEXT_FIELD_TAP_MS
-            if (focused && tapped && resumed && !pcKeyboardOpen &&
+            if (focused && tapped && resumed && !pcKeyboardOpen && desktopTextFieldKeyboardOn &&
                 resources.configuration.hardKeyboardHidden != android.content.res.Configuration.HARDKEYBOARDHIDDEN_NO) host.show()
             else if (!focused && host.shown) host.hide()
         }

@@ -752,6 +752,8 @@
     <string name="drawer_relative_mouse_off">ปิด</string>
     <string name="drawer_pc_keyboard">แป้นพิมพ์พีซี</string>
     <string name="drawer_android_keyboard">Android</string>
+    <string name="drawer_text_field_keyboard">เปิดแป้นพิมพ์ในช่องข้อความ</string>
+    <string name="drawer_text_field_keyboard_hint">แตะช่องข้อความเพื่อเปิดแป้นพิมพ์ Android เมื่อปิดไว้ ให้ใช้ปุ่มแป้นพิมพ์ที่มุมแทน</string>
     <string name="drawer_second_screen">หน้าจอที่สอง</string>
     <string name="drawer_second_screen_mode">โหมด</string>
     <string name="drawer_second_screen_shows">แสดง</string>
