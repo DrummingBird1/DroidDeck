@@ -1096,6 +1096,9 @@
     <string name="ctrl_adaptive">Stik adaptif</string>
     <string name="ctrl_rumble">Getaran permainan</string>
     <string name="ctrl_dead_zone">Zon mati kayu bedik</string>
+    <string name="ctrl_volume_keys">Butang kelantangan</string>
+    <string name="ctrl_volume_keys_hint">Semasa bermain, butang kelantangan telefon berfungsi sebagai butang pengawal ini dan bukannya menukar kelantangan.</string>
+    <string name="ctrl_volume_keys_volume">Tukar kelantangan</string>
     <string name="ctrl_steam_button">Butang Steam</string>
     <string name="ctrl_qam_button">Butang QAM</string>
     <string name="ctrl_keyboard_button">Butang papan kekunci</string>

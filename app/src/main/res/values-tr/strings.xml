@@ -1094,6 +1094,9 @@
     <string name="ctrl_adaptive">Uyarlanabilir çubuklar</string>
     <string name="ctrl_rumble">Oyun titreşimi</string>
     <string name="ctrl_dead_zone">Çubuk ölü bölgesi</string>
+    <string name="ctrl_volume_keys">Ses düğmeleri</string>
+    <string name="ctrl_volume_keys_hint">Oynarken telefonun ses düğmeleri sesi değiştirmek yerine bu kumanda düğmeleri gibi çalışır.</string>
+    <string name="ctrl_volume_keys_volume">Sesi değiştir</string>
     <string name="ctrl_steam_button">Steam düğmesi</string>
     <string name="ctrl_qam_button">QAM düğmesi</string>
     <string name="ctrl_keyboard_button">Klavye düğmesi</string>

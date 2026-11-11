@@ -1332,6 +1332,9 @@
     <string name="ctrl_adaptive">Adaptive sticks</string>
     <string name="ctrl_rumble">Game vibration</string>
     <string name="ctrl_dead_zone">Stick dead zone</string>
+    <string name="ctrl_volume_keys">Volume buttons</string>
+    <string name="ctrl_volume_keys_hint">While you play, the phone\'s volume buttons act as these controller buttons instead of changing the volume.</string>
+    <string name="ctrl_volume_keys_volume">Change volume</string>
     <string name="ctrl_steam_button">Steam button</string>
     <string name="ctrl_qam_button">QAM button</string>
     <string name="ctrl_keyboard_button">Keyboard button</string>

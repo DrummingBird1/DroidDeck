@@ -1096,6 +1096,9 @@
     <string name="ctrl_adaptive">Stik adaptif</string>
     <string name="ctrl_rumble">Getaran gim</string>
     <string name="ctrl_dead_zone">Zona mati stik</string>
+    <string name="ctrl_volume_keys">Tombol volume</string>
+    <string name="ctrl_volume_keys_hint">Saat bermain, tombol volume ponsel berfungsi sebagai tombol pengontrol ini, bukan untuk mengubah volume.</string>
+    <string name="ctrl_volume_keys_volume">Ubah volume</string>
     <string name="ctrl_steam_button">Tombol Steam</string>
     <string name="ctrl_qam_button">Tombol QAM</string>
     <string name="ctrl_keyboard_button">Tombol keyboard</string>

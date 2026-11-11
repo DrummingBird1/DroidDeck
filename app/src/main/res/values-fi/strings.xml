@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Mukautuvat sauvat</string>
     <string name="ctrl_rumble">Pelin tärinä</string>
     <string name="ctrl_dead_zone">Ohjaussauvan kuollut alue</string>
+    <string name="ctrl_volume_keys">Äänenvoimakkuuspainikkeet</string>
+    <string name="ctrl_volume_keys_hint">Pelatessa puhelimen äänenvoimakkuuspainikkeet toimivat näinä ohjaimen painikkeina äänenvoimakkuuden muuttamisen sijaan.</string>
+    <string name="ctrl_volume_keys_volume">Muuta äänenvoimakkuutta</string>
     <string name="ctrl_steam_button">Steam-painike</string>
     <string name="ctrl_qam_button">QAM-painike</string>
     <string name="ctrl_keyboard_button">Näppäimistöpainike</string>

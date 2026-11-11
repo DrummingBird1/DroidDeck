@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Προσαρμοστικοί μοχλοί</string>
     <string name="ctrl_rumble">Κραδασμός παιχνιδιού</string>
     <string name="ctrl_dead_zone">Νεκρή ζώνη μοχλού</string>
+    <string name="ctrl_volume_keys">Κουμπιά έντασης</string>
+    <string name="ctrl_volume_keys_hint">Ενώ παίζετε, τα κουμπιά έντασης του τηλεφώνου λειτουργούν ως αυτά τα κουμπιά χειριστηρίου αντί να αλλάζουν την ένταση.</string>
+    <string name="ctrl_volume_keys_volume">Αλλαγή έντασης</string>
     <string name="ctrl_steam_button">Κουμπί Steam</string>
     <string name="ctrl_qam_button">Κουμπί QAM</string>
     <string name="ctrl_keyboard_button">Κουμπί πληκτρολογίου</string>

@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">एडैप्टिव स्टिक</string>
     <string name="ctrl_rumble">गेम वाइब्रेशन</string>
     <string name="ctrl_dead_zone">स्टिक का डेड ज़ोन</string>
+    <string name="ctrl_volume_keys">वॉल्यूम बटन</string>
+    <string name="ctrl_volume_keys_hint">खेलते समय फ़ोन के वॉल्यूम बटन वॉल्यूम बदलने के बजाय इन कंट्रोलर बटन की तरह काम करते हैं।</string>
+    <string name="ctrl_volume_keys_volume">वॉल्यूम बदलें</string>
     <string name="ctrl_steam_button">Steam बटन</string>
     <string name="ctrl_qam_button">QAM बटन</string>
     <string name="ctrl_keyboard_button">कीबोर्ड बटन</string>

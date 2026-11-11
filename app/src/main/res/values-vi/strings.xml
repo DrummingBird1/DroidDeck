@@ -1096,6 +1096,9 @@
     <string name="ctrl_adaptive">Cần thích ứng</string>
     <string name="ctrl_rumble">Rung khi chơi game</string>
     <string name="ctrl_dead_zone">Vùng chết của cần điều khiển</string>
+    <string name="ctrl_volume_keys">Nút âm lượng</string>
+    <string name="ctrl_volume_keys_hint">Khi chơi, nút âm lượng của điện thoại hoạt động như các nút tay cầm này thay vì thay đổi âm lượng.</string>
+    <string name="ctrl_volume_keys_volume">Đổi âm lượng</string>
     <string name="ctrl_steam_button">Nút Steam</string>
     <string name="ctrl_qam_button">Nút QAM</string>
     <string name="ctrl_keyboard_button">Nút bàn phím</string>

@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Adaptív karok</string>
     <string name="ctrl_rumble">Játékvibráció</string>
     <string name="ctrl_dead_zone">Kar holtzónája</string>
+    <string name="ctrl_volume_keys">Hangerőgombok</string>
+    <string name="ctrl_volume_keys_hint">Játék közben a telefon hangerőgombjai ezekként a kontrollergombokként működnek a hangerő módosítása helyett.</string>
+    <string name="ctrl_volume_keys_volume">Hangerő módosítása</string>
     <string name="ctrl_steam_button">Steam gomb</string>
     <string name="ctrl_qam_button">QAM gomb</string>
     <string name="ctrl_keyboard_button">Billentyűzet gomb</string>

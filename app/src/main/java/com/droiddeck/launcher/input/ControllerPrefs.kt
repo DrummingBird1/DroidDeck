@@ -25,6 +25,10 @@ object ControllerPrefs {
     val deadZones = listOf(0, 5, 8, 12, 15, 20, 25)
     const val DEFAULT_DEAD_ZONE_PERCENT = 12
 
+    const val VOLUME_KEYS_SHOULDERS = "shoulders"
+    const val VOLUME_KEYS_TRIGGERS = "triggers"
+    val volumeKeyModes = listOf(OFF, VOLUME_KEYS_SHOULDERS, VOLUME_KEYS_TRIGGERS)
+
     val mappable = listOf(
         "a" to R.string.ctrl_button_a, "b" to R.string.ctrl_button_b, "x" to R.string.ctrl_button_x, "y" to R.string.ctrl_button_y,
         "lb" to R.string.ctrl_button_lb, "rb" to R.string.ctrl_button_rb, "lt" to R.string.ctrl_button_lt, "rt" to R.string.ctrl_button_rt,
@@ -55,6 +59,7 @@ object ControllerPrefs {
         val customLayout: Boolean,
         val mapping: Map<String, String>,
         val deadZone: Int,
+        val volumeKeys: String,
     )
 
     internal fun prefs(context: Context) = context.getSharedPreferences("controller", Context.MODE_PRIVATE)
@@ -77,6 +82,7 @@ object ControllerPrefs {
             customLayout = p.all.keys.any { it.startsWith("layout.") },
             mapping = mappable.associate { (id, _) -> id to target(context, id) },
             deadZone = deadZone(context),
+            volumeKeys = volumeKeys(context),
         )
     }
 
@@ -114,6 +120,13 @@ object ControllerPrefs {
 
     fun setDeadZone(context: Context, percent: Int) {
         prefs(context).edit().putInt("deadZone", percent).apply()
+    }
+
+    fun volumeKeys(context: Context): String =
+        prefs(context).getString("volumeKeys", OFF)?.takeIf { it in volumeKeyModes } ?: OFF
+
+    fun setVolumeKeys(context: Context, mode: String) {
+        prefs(context).edit().putString("volumeKeys", mode).apply()
     }
 
     fun setRumble(context: Context, on: Boolean) {

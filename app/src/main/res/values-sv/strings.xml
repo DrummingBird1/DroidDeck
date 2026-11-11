@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Adaptiva spakar</string>
     <string name="ctrl_rumble">Spelvibration</string>
     <string name="ctrl_dead_zone">Styrspakens dödzon</string>
+    <string name="ctrl_volume_keys">Volymknappar</string>
+    <string name="ctrl_volume_keys_hint">När du spelar fungerar telefonens volymknappar som de här kontrollknapparna i stället för att ändra volymen.</string>
+    <string name="ctrl_volume_keys_volume">Ändra volym</string>
     <string name="ctrl_steam_button">Steam-knappen</string>
     <string name="ctrl_qam_button">QAM-knappen</string>
     <string name="ctrl_keyboard_button">Tangentbordsknappen</string>

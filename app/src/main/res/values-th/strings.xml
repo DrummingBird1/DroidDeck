@@ -1096,6 +1096,9 @@
     <string name="ctrl_adaptive">สติ๊กแบบปรับอัตโนมัติ</string>
     <string name="ctrl_rumble">การสั่นของเกม</string>
     <string name="ctrl_dead_zone">เดดโซนของแอนะล็อกสติ๊ก</string>
+    <string name="ctrl_volume_keys">ปุ่มปรับระดับเสียง</string>
+    <string name="ctrl_volume_keys_hint">ขณะเล่น ปุ่มปรับระดับเสียงของโทรศัพท์จะทำงานเป็นปุ่มคอนโทรลเลอร์เหล่านี้แทนการปรับระดับเสียง</string>
+    <string name="ctrl_volume_keys_volume">ปรับระดับเสียง</string>
     <string name="ctrl_steam_button">ปุ่ม Steam</string>
     <string name="ctrl_qam_button">ปุ่ม QAM</string>
     <string name="ctrl_keyboard_button">ปุ่มแป้นพิมพ์</string>

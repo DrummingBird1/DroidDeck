@@ -226,6 +226,11 @@ private fun InputSettingsContent(onBack: () -> Unit, onChanged: () -> Unit, embe
                     SettingsGroup(stringResource(R.string.input_device_settings)) {
                         ToggleRow(host, "controller-rumble", stringResource(R.string.ctrl_rumble), null, controller.rumble) { ControllerPrefs.setRumble(context, it); onChanged() }
                         ChoiceRow(host, "controller-dead-zone", stringResource(R.string.ctrl_dead_zone), null, ControllerPrefs.deadZones.map { it to stringResource(R.string.ctrl_percent, it) }, controller.deadZone) { ControllerPrefs.setDeadZone(context, it); onChanged() }
+                        ChoiceRow(host, "controller-volume-keys", stringResource(R.string.ctrl_volume_keys), stringResource(R.string.ctrl_volume_keys_hint),
+                            listOf(ControllerPrefs.OFF to stringResource(R.string.ctrl_volume_keys_volume),
+                                ControllerPrefs.VOLUME_KEYS_SHOULDERS to "${stringResource(R.string.ctrl_target_lb)} / ${stringResource(R.string.ctrl_target_rb)}",
+                                ControllerPrefs.VOLUME_KEYS_TRIGGERS to "${stringResource(R.string.ctrl_target_lt)} / ${stringResource(R.string.ctrl_target_rt)}"),
+                            controller.volumeKeys) { ControllerPrefs.setVolumeKeys(context, it); onChanged() }
                         ToggleRow(host, "controller-joycon-vr", stringResource(R.string.ctrl_joycon_vr), stringResource(R.string.ctrl_joycon_vr_hint), controller.joyConVr) { ControllerPrefs.setJoyConVr(context, it); onChanged() }
                     }
                     SettingsGroup(stringResource(R.string.shortcuts_title)) { PhysicalShortcutRows() }

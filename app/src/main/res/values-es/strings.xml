@@ -1108,6 +1108,9 @@
     <string name="ctrl_adaptive">Sticks adaptables</string>
     <string name="ctrl_rumble">Vibración en juegos</string>
     <string name="ctrl_dead_zone">Zona muerta de la palanca</string>
+    <string name="ctrl_volume_keys">Botones de volumen</string>
+    <string name="ctrl_volume_keys_hint">Mientras juegas, los botones de volumen del teléfono funcionan como estos botones del mando en lugar de cambiar el volumen.</string>
+    <string name="ctrl_volume_keys_volume">Cambiar el volumen</string>
     <string name="ctrl_steam_button">Botón Steam</string>
     <string name="ctrl_qam_button">Botón QAM</string>
     <string name="ctrl_keyboard_button">Botón de teclado</string>

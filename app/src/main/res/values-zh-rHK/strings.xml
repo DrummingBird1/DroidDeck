@@ -1096,6 +1096,9 @@
     <string name="ctrl_adaptive">自動調整搖桿</string>
     <string name="ctrl_rumble">遊戲震動</string>
     <string name="ctrl_dead_zone">搖桿死區</string>
+    <string name="ctrl_volume_keys">音量鍵</string>
+    <string name="ctrl_volume_keys_hint">遊戲時，手機的音量鍵會用作這些控制器按鍵，而不是調校音量。</string>
+    <string name="ctrl_volume_keys_volume">調校音量</string>
     <string name="ctrl_steam_button">Steam 按鈕</string>
     <string name="ctrl_qam_button">QAM 按鈕</string>
     <string name="ctrl_keyboard_button">鍵盤按鈕</string>

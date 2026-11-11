@@ -1108,6 +1108,9 @@
     <string name="ctrl_adaptive">Manșe adaptive</string>
     <string name="ctrl_rumble">Vibrații de joc</string>
     <string name="ctrl_dead_zone">Zonă moartă a manetei</string>
+    <string name="ctrl_volume_keys">Butoane de volum</string>
+    <string name="ctrl_volume_keys_hint">În timpul jocului, butoanele de volum ale telefonului funcționează ca aceste butoane de controller în loc să schimbe volumul.</string>
+    <string name="ctrl_volume_keys_volume">Schimbă volumul</string>
     <string name="ctrl_steam_button">Butonul Steam</string>
     <string name="ctrl_qam_button">Butonul QAM</string>
     <string name="ctrl_keyboard_button">Butonul tastaturii</string>

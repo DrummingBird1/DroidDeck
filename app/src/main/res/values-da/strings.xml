@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Adaptive styrepinde</string>
     <string name="ctrl_rumble">Spilvibration</string>
     <string name="ctrl_dead_zone">Dødzone for styrepind</string>
+    <string name="ctrl_volume_keys">Lydstyrkeknapper</string>
+    <string name="ctrl_volume_keys_hint">Mens du spiller, fungerer telefonens lydstyrkeknapper som disse controllerknapper i stedet for at ændre lydstyrken.</string>
+    <string name="ctrl_volume_keys_volume">Skift lydstyrke</string>
     <string name="ctrl_steam_button">Steam-knap</string>
     <string name="ctrl_qam_button">QAM-knap</string>
     <string name="ctrl_keyboard_button">Tastaturknap</string>

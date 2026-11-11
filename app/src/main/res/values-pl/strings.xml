@@ -1114,6 +1114,9 @@
     <string name="ctrl_adaptive">Adaptacyjne gałki</string>
     <string name="ctrl_rumble">Wibracje gry</string>
     <string name="ctrl_dead_zone">Martwa strefa drążka</string>
+    <string name="ctrl_volume_keys">Przyciski głośności</string>
+    <string name="ctrl_volume_keys_hint">Podczas gry przyciski głośności telefonu działają jak te przyciski kontrolera zamiast zmieniać głośność.</string>
+    <string name="ctrl_volume_keys_volume">Zmiana głośności</string>
     <string name="ctrl_steam_button">Przycisk Steam</string>
     <string name="ctrl_qam_button">Przycisk QAM</string>
     <string name="ctrl_keyboard_button">Przycisk klawiatury</string>

@@ -1094,6 +1094,9 @@
     <string name="ctrl_adaptive">Adaptive Sticks</string>
     <string name="ctrl_rumble">Spielvibration</string>
     <string name="ctrl_dead_zone">Stick-Totzone</string>
+    <string name="ctrl_volume_keys">Lautstärketasten</string>
+    <string name="ctrl_volume_keys_hint">Beim Spielen dienen die Lautstärketasten des Telefons als diese Controller-Tasten, statt die Lautstärke zu ändern.</string>
+    <string name="ctrl_volume_keys_volume">Lautstärke ändern</string>
     <string name="ctrl_steam_button">Steam-Taste</string>
     <string name="ctrl_qam_button">QAM-Taste</string>
     <string name="ctrl_keyboard_button">Tastatur-Taste</string>

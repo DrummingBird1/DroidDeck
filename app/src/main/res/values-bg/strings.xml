@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Адаптивни стикове</string>
     <string name="ctrl_rumble">Вибрация от играта</string>
     <string name="ctrl_dead_zone">Мъртва зона на стика</string>
+    <string name="ctrl_volume_keys">Бутони за сила на звука</string>
+    <string name="ctrl_volume_keys_hint">Докато играете, бутоните за сила на звука на телефона работят като тези бутони на контролера, вместо да променят силата на звука.</string>
+    <string name="ctrl_volume_keys_volume">Промяна на силата на звука</string>
     <string name="ctrl_steam_button">Бутон Steam</string>
     <string name="ctrl_qam_button">Бутон QAM</string>
     <string name="ctrl_keyboard_button">Бутон за клавиатура</string>

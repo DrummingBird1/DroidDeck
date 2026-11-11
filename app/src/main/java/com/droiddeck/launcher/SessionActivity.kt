@@ -229,6 +229,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
     private lateinit var memoryHud: com.droiddeck.launcher.session.MemoryHud
     private var padBridge: PadBridge? = null
     private val physicalShortcuts = PhysicalShortcutRouter()
+    private val volumeKeys = com.droiddeck.launcher.input.VolumeKeyButtons()
     private var joyConVr: com.droiddeck.launcher.input.JoyConVr? = null
     private var handCamera: com.droiddeck.launcher.handtracking.HandCamera? = null
     private var padMotion: com.droiddeck.launcher.input.PadMotion? = null
@@ -2518,6 +2519,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
     private fun releasePads() {
         inputMotion.stop()
         physicalInputBindings?.release()
+        volumeKeys.release(::writeVolumeKeys)
         com.droiddeck.launcher.input.HomeButtonShortcuts.cancel(this)
         backQamInput.cancel()
         padBridge?.releaseAll()
@@ -2639,11 +2641,15 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         when (event.keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_MUTE -> {
-                val steamVolume =
-                    SessionState.mode == SessionService.MODE_STEAM && SessionState.running &&
+                val inGame = SessionState.running &&
                     SessionState.firstFrameSeen && !SessionState.suspended && !ended &&
                     !pipUi && !drawerOpen && !pcKeyboardOpen && !achievementsOpen &&
                     !gestureSettingsOpen && !inputSettingsOpen && !appTextFocus && window.decorView.hasWindowFocus()
+                val padButtons = inGame && padBridge != null &&
+                    (SessionState.mode != SessionService.MODE_STEAM || SessionPrefs.builtinPad(this))
+                if (volumeKeys.onKey(event, controllerSettings?.volumeKeys ?: ControllerPrefs.OFF, padButtons,
+                        volumeUpIsLeft(), ::writeVolumeKeys)) return true
+                val steamVolume = SessionState.mode == SessionService.MODE_STEAM && inGame
                 if (steamVolume) {
                     val audio = getSystemService(android.media.AudioManager::class.java)
                     if (com.droiddeck.launcher.input.SteamVolumeKeys.dispatch(event, !audio.isVolumeFixed) { direction ->
@@ -2797,6 +2803,16 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
         }
         return super.dispatchKeyEvent(event)
     }
+
+    private fun writeVolumeKeys() {
+        val bridge = padBridge ?: return
+        if (volumeKeys.pressed) bridge.applyTouch(volumeKeys, InputRole.PHYSICAL) { volumeKeys.write(it) }
+        else bridge.releaseTouch(volumeKeys)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun volumeUpIsLeft(): Boolean =
+        (if (Build.VERSION.SDK_INT >= 30) display else windowManager.defaultDisplay)?.rotation != android.view.Surface.ROTATION_270
 
     private fun sendToTopDesktop(event: KeyEvent): Boolean {
         val key = event.deviceId to event.keyCode

@@ -1180,6 +1180,9 @@
     <string name="ctrl_adaptive">自适应摇杆</string>
     <string name="ctrl_rumble">游戏震动</string>
     <string name="ctrl_dead_zone">摇杆死区</string>
+    <string name="ctrl_volume_keys">音量键</string>
+    <string name="ctrl_volume_keys_hint">游戏时，手机的音量键将用作这些控制器按键，而不是调节音量。</string>
+    <string name="ctrl_volume_keys_volume">调节音量</string>
     <string name="ctrl_steam_button">Steam 按钮</string>
     <string name="ctrl_qam_button">QAM 按钮</string>
     <string name="ctrl_keyboard_button">键盘按钮</string>

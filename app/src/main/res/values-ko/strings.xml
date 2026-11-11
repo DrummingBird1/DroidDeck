@@ -1096,6 +1096,9 @@
     <string name="ctrl_adaptive">적응형 스틱</string>
     <string name="ctrl_rumble">게임 진동</string>
     <string name="ctrl_dead_zone">스틱 데드존</string>
+    <string name="ctrl_volume_keys">음량 버튼</string>
+    <string name="ctrl_volume_keys_hint">플레이하는 동안 스마트폰의 음량 버튼이 음량을 바꾸는 대신 이 컨트롤러 버튼으로 작동합니다.</string>
+    <string name="ctrl_volume_keys_volume">음량 변경</string>
     <string name="ctrl_steam_button">Steam 버튼</string>
     <string name="ctrl_qam_button">QAM 버튼</string>
     <string name="ctrl_keyboard_button">키보드 버튼</string>

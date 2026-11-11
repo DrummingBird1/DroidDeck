@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Adaptieve sticks</string>
     <string name="ctrl_rumble">Trillen in games</string>
     <string name="ctrl_dead_zone">Dode zone van stick</string>
+    <string name="ctrl_volume_keys">Volumeknoppen</string>
+    <string name="ctrl_volume_keys_hint">Tijdens het spelen werken de volumeknoppen van de telefoon als deze controllerknoppen in plaats van het volume te wijzigen.</string>
+    <string name="ctrl_volume_keys_volume">Volume wijzigen</string>
     <string name="ctrl_steam_button">Steam-knop</string>
     <string name="ctrl_qam_button">QAM-knop</string>
     <string name="ctrl_keyboard_button">Toetsenbordknop</string>

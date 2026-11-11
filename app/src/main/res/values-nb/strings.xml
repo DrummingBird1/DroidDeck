@@ -1102,6 +1102,9 @@
     <string name="ctrl_adaptive">Adaptive stikker</string>
     <string name="ctrl_rumble">Spillvibrasjon</string>
     <string name="ctrl_dead_zone">Dødsone for styrespak</string>
+    <string name="ctrl_volume_keys">Volumknapper</string>
+    <string name="ctrl_volume_keys_hint">Mens du spiller, fungerer telefonens volumknapper som disse kontrollerknappene i stedet for å endre volumet.</string>
+    <string name="ctrl_volume_keys_volume">Endre volum</string>
     <string name="ctrl_steam_button">Steam-knapp</string>
     <string name="ctrl_qam_button">QAM-knapp</string>
     <string name="ctrl_keyboard_button">Tastatur-knapp</string>

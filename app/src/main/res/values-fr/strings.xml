@@ -1108,6 +1108,9 @@
     <string name="ctrl_adaptive">Joystick adaptatif</string>
     <string name="ctrl_rumble">Vibration du jeu</string>
     <string name="ctrl_dead_zone">Zone morte du stick</string>
+    <string name="ctrl_volume_keys">Boutons de volume</string>
+    <string name="ctrl_volume_keys_hint">Pendant le jeu, les boutons de volume du téléphone deviennent ces boutons de manette au lieu de régler le volume.</string>
+    <string name="ctrl_volume_keys_volume">Régler le volume</string>
     <string name="ctrl_steam_button">Bouton Steam</string>
     <string name="ctrl_qam_button">Bouton QAM</string>
     <string name="ctrl_keyboard_button">Bouton clavier</string>
