@@ -1119,6 +1119,8 @@
     <string name="ctrl_keyboard_button">Tlačítko klávesnice</string>
     <string name="ctrl_joycon_vr">Joy-Cony jako ovladače VR</string>
     <string name="ctrl_joycon_vr_hint">Když běží SteamVR, každý Joy-Con slouží jako ruka. Namiřte ho dopředu a podržením Home nebo Capture ho znovu vycentrujete.</string>
+    <string name="ctrl_joycon_separate">Joy-Cony jako samostatné ovladače</string>
+    <string name="ctrl_joycon_separate_hint">Každý Joy-Con je samostatný hráč a drží se na šířku. SL a SR fungují jako LB a RB.</string>
     <string name="setup_animations">Animace</string>
     <string name="setup_low_storage_warning">Upozornit na nedostatek úložiště</string>
     <string name="setup_low_storage_warning_hint">Zeptat se před spuštěním Steamu, když je volné místo pod 10 GB.</string>

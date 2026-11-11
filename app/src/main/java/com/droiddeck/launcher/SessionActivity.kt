@@ -751,6 +751,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
 
         val bridge = PadBridge(File(LinuxRuntime.sessionRoot(this), "dev/input"))
         bridge.setStickDeadZone(ControllerPrefs.deadZone(this))
+        bridge.setSeparateJoyCons(ControllerPrefs.separateJoyCons(this))
         bridge.setBuiltinPad(SessionState.mode != SessionService.MODE_STEAM || SessionPrefs.builtinPad(this))
         padBridge = bridge
         inputRouter = InputRouter(inputOutput).also { bridge.setInputRouter(it); DeckControls.setRouter(it); physicalInputBindings = com.droiddeck.launcher.input.PhysicalInputBindings(it) }
@@ -1070,6 +1071,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
                         controllerSettings = ControllerPrefs.read(this@SessionActivity)
                         oscMode = SessionPrefs.oscMode(this@SessionActivity)
                         padBridge?.setStickDeadZone(ControllerPrefs.deadZone(this@SessionActivity))
+                        padBridge?.setSeparateJoyCons(ControllerPrefs.separateJoyCons(this@SessionActivity))
                         joyConVr?.refresh()
                         onScreenControls?.reload()
                         refreshInputProfile()
@@ -4727,6 +4729,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback {
         (getSystemService(INPUT_SERVICE) as? InputManager)
             ?.registerInputDeviceListener(deviceListener, Handler(Looper.getMainLooper()))
         padBridge?.setStickDeadZone(ControllerPrefs.deadZone(this))
+        padBridge?.setSeparateJoyCons(ControllerPrefs.separateJoyCons(this))
         refreshSecondScreenDisplays()
         if (SessionState.guestPid > 1) padBridge?.syncConnectedControllers()
         joyConVr?.refresh()

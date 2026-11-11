@@ -76,6 +76,7 @@ public final class PadBridge {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean open;
     private volatile boolean builtinPad = true;
+    private boolean separateJoyCons;
     private TouchRoute touchRoute;
     private boolean touchMouseActive;
     private final PadState routedTouch = new PadState();
@@ -179,6 +180,14 @@ public final class PadBridge {
         boolean changed = builtinPad != on;
         builtinPad = on;
         if (changed && !on) resetBuiltin();
+    }
+
+    public synchronized void setSeparateJoyCons(boolean on) {
+        if (separateJoyCons == on) return;
+        separateJoyCons = on;
+        for (int slot = 0; slot < SLOTS; slot++) {
+            if (owners[slot] != NO_CONTROLLER && JoyCon.side(InputDevice.getDevice(owners[slot])) >= 0) free(slot);
+        }
     }
 
     private static volatile int firstSlot;
@@ -383,7 +392,8 @@ public final class PadBridge {
         long timing = InputTiming.begin();
         PadState pad = stateFor(slot);
         boolean pressed = event.getAction() == KeyEvent.ACTION_DOWN;
-        switch (event.getKeyCode()) {
+        int keyCode = side >= 0 && separateJoyCons ? JoyCon.sidewaysKey(side, event.getScanCode()) : event.getKeyCode();
+        switch (keyCode) {
             case KeyEvent.KEYCODE_BUTTON_A: pad.press(0, pressed); break;
             case KeyEvent.KEYCODE_BUTTON_B: pad.press(1, pressed); break;
             case KeyEvent.KEYCODE_BUTTON_X: pad.press(2, pressed); break;
@@ -505,7 +515,10 @@ public final class PadBridge {
             float x = event.getAxisValue(stick[0]);
             float y = event.getAxisValue(stick[1]);
             boolean chordStickInput = hasChordStickInput(x, y);
-            retainStick(slot, side, x, y);
+            if (separateJoyCons) {
+                float[] sideways = JoyCon.sidewaysStick(side, x, y);
+                retainStick(slot, JoyCon.LEFT, sideways[0], sideways[1]);
+            } else retainStick(slot, side, x, y);
             projectSticks(slot);
             if (chordStickInput) noteChordInput(slot);
             if (Math.max(Math.abs(x), Math.abs(y)) > 0.5f) notePlayerInput();
@@ -952,7 +965,7 @@ public final class PadBridge {
             if (partners[slot] != NO_CONTROLLER && InputDevice.getDevice(partners[slot]) == null) leave(slot, partners[slot]);
             if (owners[slot] != NO_CONTROLLER && InputDevice.getDevice(owners[slot]) == null) leave(slot, owners[slot]);
         }
-        int side = JoyCon.side(device);
+        int side = separateJoyCons ? -1 : JoyCon.side(device);
         for (int slot = firstPlayerSlot(); side >= 0 && slot < SLOTS; slot++) {
             if (owners[slot] == NO_CONTROLLER || partners[slot] != NO_CONTROLLER) continue;
             InputDevice owner = InputDevice.getDevice(owners[slot]);

@@ -1101,6 +1101,8 @@
     <string name="ctrl_keyboard_button">ปุ่มแป้นพิมพ์</string>
     <string name="ctrl_joycon_vr">ใช้ Joy-Con เป็นคอนโทรลเลอร์ VR</string>
     <string name="ctrl_joycon_vr_hint">ขณะที่ SteamVR ทำงาน Joy-Con แต่ละตัวจะกลายเป็นมือ ชี้ไปข้างหน้าแล้วกด Home หรือ Capture ค้างไว้เพื่อจัดให้อยู่ตรงกลางอีกครั้ง</string>
+    <string name="ctrl_joycon_separate">ใช้ Joy-Con เป็นคอนโทรลเลอร์แยกกัน</string>
+    <string name="ctrl_joycon_separate_hint">Joy-Con แต่ละตัวจะเป็นผู้เล่นแยกกันและถือในแนวนอน SL และ SR ทำงานเป็น LB และ RB</string>
     <string name="setup_animations">ภาพเคลื่อนไหว</string>
     <string name="setup_low_storage_warning">เตือนเมื่อพื้นที่เก็บข้อมูลเหลือน้อย</string>
     <string name="setup_low_storage_warning_hint">ถามก่อนเริ่ม Steam เมื่อพื้นที่ว่างน้อยกว่า 10 GB</string>

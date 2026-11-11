@@ -1140,6 +1140,8 @@
     <string name="ctrl_keyboard_button">Botón de teclado</string>
     <string name="ctrl_joycon_vr">Joy-Con como controles de RV</string>
     <string name="ctrl_joycon_vr_hint">Mientras SteamVR está activo, cada Joy-Con es una mano. Apúntalo al frente y mantén Home o Captura para recentrarlo.</string>
+    <string name="ctrl_joycon_separate">Joy-Con como controles separados</string>
+    <string name="ctrl_joycon_separate_hint">Cada Joy-Con es un jugador distinto y se sostiene de lado. SL y SR funcionan como LB y RB.</string>
     <string name="hand_camera_prompt_body">Sin ningún mando conectado, la cámara del teléfono rastrea tus manos en realidad virtual: pellizca con el pulgar y el índice para hacer clic, cierra la mano para agarrar y gira la palma hacia ti y pellizca para abrir el menú. Con los mandos Joy-Con emparejados, la cámara rastrea su posición mientras los mandos Joy-Con proporcionan la rotación y las entradas de los botones. Las imágenes se procesan en este dispositivo y nunca se guardan ni se envían.</string>
     <string name="hand_camera_rear">Cámara trasera</string>
     <string name="hand_camera_rear_hint">Recomendada. Suele ser más nítida y amplia.</string>

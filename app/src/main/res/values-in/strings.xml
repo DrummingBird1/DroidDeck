@@ -1101,6 +1101,8 @@
     <string name="ctrl_keyboard_button">Tombol keyboard</string>
     <string name="ctrl_joycon_vr">Joy-Con sebagai pengontrol VR</string>
     <string name="ctrl_joycon_vr_hint">Saat SteamVR berjalan, setiap Joy-Con menjadi tangan. Arahkan ke depan lalu tahan Home atau Capture untuk memusatkannya kembali.</string>
+    <string name="ctrl_joycon_separate">Joy-Con sebagai pengontrol terpisah</string>
+    <string name="ctrl_joycon_separate_hint">Setiap Joy-Con menjadi pemain tersendiri dan dipegang menyamping. SL dan SR berfungsi sebagai LB dan RB.</string>
     <string name="setup_animations">Animasi</string>
     <string name="setup_low_storage_warning">Peringatkan saat penyimpanan hampir penuh</string>
     <string name="setup_low_storage_warning_hint">Tanya sebelum memulai Steam saat ruang kosong di bawah 10 GB.</string>

@@ -1105,6 +1105,8 @@
     <string name="ctrl_keyboard_button">Botão do teclado</string>
     <string name="ctrl_joycon_vr">Joy-Con como comandos de RV</string>
     <string name="ctrl_joycon_vr_hint">Enquanto o SteamVR está a correr, cada Joy-Con torna-se uma mão. Aponte-o para a frente e mantenha Home ou Capture premido para o recentrar.</string>
+    <string name="ctrl_joycon_separate">Joy-Con como comandos separados</string>
+    <string name="ctrl_joycon_separate_hint">Cada Joy-Con torna-se um jogador separado, segurado na horizontal. SL e SR funcionam como LB e RB.</string>
     <string name="setup_animations">Animações</string>
     <string name="setup_low_storage_warning">Avisar quando o armazenamento estiver baixo</string>
     <string name="setup_low_storage_warning_hint">Perguntar antes de iniciar o Steam quando o espaço livre for inferior a 10 GB.</string>

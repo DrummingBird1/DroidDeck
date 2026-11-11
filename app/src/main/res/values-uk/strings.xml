@@ -1119,6 +1119,8 @@
     <string name="ctrl_keyboard_button">Кнопка клавіатури</string>
     <string name="ctrl_joycon_vr">Joy-Con як VR-контролери</string>
     <string name="ctrl_joycon_vr_hint">Поки працює SteamVR, кожен Joy-Con стає рукою. Спрямуйте його вперед і утримуйте Home або Capture, щоб знову його відцентрувати.</string>
+    <string name="ctrl_joycon_separate">Joy-Con як окремі контролери</string>
+    <string name="ctrl_joycon_separate_hint">Кожен Joy-Con стає окремим гравцем, і його тримають горизонтально. SL і SR працюють як LB і RB.</string>
     <string name="setup_animations">Анімації</string>
     <string name="setup_low_storage_warning">Попереджати про брак місця</string>
     <string name="setup_low_storage_warning_hint">Питати перед запуском Steam, якщо вільно менше 10 ГБ.</string>

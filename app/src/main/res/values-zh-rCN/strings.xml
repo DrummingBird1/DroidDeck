@@ -1185,6 +1185,8 @@
     <string name="ctrl_keyboard_button">键盘按钮</string>
     <string name="ctrl_joycon_vr">将 Joy-Con 用作 VR 手柄</string>
     <string name="ctrl_joycon_vr_hint">SteamVR 运行时，每个 Joy-Con 都会成为一只手。将其指向前方并按住 HOME 键或截图键即可重新居中。</string>
+    <string name="ctrl_joycon_separate">将 Joy-Con 用作独立手柄</string>
+    <string name="ctrl_joycon_separate_hint">每个 Joy-Con 都成为单独的玩家，横向握持。SL 和 SR 用作 LB 和 RB。</string>
     <string name="setup_animations">动画</string>
     <string name="setup_low_storage_warning">存储空间不足时提醒</string>
     <string name="setup_low_storage_warning_hint">可用空间不足 10 GB 时，启动 Steam 前先询问。</string>

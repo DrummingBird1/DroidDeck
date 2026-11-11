@@ -147,6 +147,45 @@ class JoyConPadTest {
         assertNull(RecordingWriter.pads[2])
     }
 
+    @Test fun separateJoyConsAreTwoSidewaysPlayers() {
+        bridge.setSeparateJoyCons(true)
+        tap(left, KeyEvent.KEYCODE_BUTTON_L1, BTN_TL)
+        tap(right, KeyEvent.KEYCODE_BUTTON_R1, BTN_TR)
+        assertEquals(left.id, PadBridge.controllerForSlot(0))
+        assertEquals(right.id, PadBridge.controllerForSlot(1))
+        assertEquals(PadBridge.NO_CONTROLLER, PadBridge.joyConForSlot(0, JoyCon.LEFT))
+        assertTrue(press(left, KeyEvent.KEYCODE_UNKNOWN, 0x222))
+        assertTrue(press(left, KeyEvent.KEYCODE_BUTTON_R1, BTN_TR))
+        assertTrue(pad(0).isDown(PadState.A))
+        assertTrue(pad(0).isDown(PadState.LB))
+        assertFalse(pad(0).left)
+        assertTrue(press(right, KeyEvent.KEYCODE_BUTTON_B, 0x131))
+        assertTrue(press(right, KeyEvent.KEYCODE_BUTTON_L1, BTN_TL))
+        assertTrue(pad(1).isDown(PadState.A))
+        assertTrue(pad(1).isDown(PadState.LB))
+        assertTrue(bridge.onMotionEvent(motion(left, MotionEvent.AXIS_X to 0.75f, MotionEvent.AXIS_Y to -0.5f)))
+        assertTrue(bridge.onMotionEvent(motion(right, MotionEvent.AXIS_RX to -0.6f, MotionEvent.AXIS_RY to 0.4f)))
+        assertEquals(-0.5f, pad(0).leftX)
+        assertEquals(-0.75f, pad(0).leftY)
+        assertEquals(-0.4f, pad(1).leftX)
+        assertEquals(-0.6f, pad(1).leftY)
+        assertEquals(0f, pad(1).rightX)
+    }
+
+    @Test fun switchingTheOptionRegroupsConnectedJoyCons() {
+        pair()
+        bridge.setSeparateJoyCons(true)
+        assertEquals(PadBridge.NO_CONTROLLER, PadBridge.joyConForSlot(0, JoyCon.LEFT))
+        tap(right, KeyEvent.KEYCODE_BUTTON_A, BTN_SOUTH)
+        tap(left, KeyEvent.KEYCODE_BUTTON_L1, BTN_TL)
+        assertEquals(right.id, PadBridge.controllerForSlot(0))
+        assertEquals(left.id, PadBridge.controllerForSlot(1))
+        bridge.setSeparateJoyCons(false)
+        pair()
+        assertEquals(left.id, PadBridge.joyConForSlot(0, JoyCon.LEFT))
+        assertEquals(right.id, PadBridge.joyConForSlot(0, JoyCon.RIGHT))
+    }
+
     @Test fun joyConsHeldForVrAreLeftAlone() {
         bridge.setExcluded { it == left.id }
         assertFalse(bridge.onKeyEvent(key(left, KeyEvent.KEYCODE_BUTTON_L1, BTN_TL)))

@@ -1107,6 +1107,8 @@
     <string name="ctrl_keyboard_button">Näppäimistöpainike</string>
     <string name="ctrl_joycon_vr">Joy-Conit VR-ohjaimina</string>
     <string name="ctrl_joycon_vr_hint">Kun SteamVR on käynnissä, jokainen Joy-Con toimii kätenä. Osoita sillä eteenpäin ja pidä Home- tai Capture-painiketta pohjassa keskittääksesi sen uudelleen.</string>
+    <string name="ctrl_joycon_separate">Joy-Conit erillisinä ohjaimina</string>
+    <string name="ctrl_joycon_separate_hint">Jokaisesta Joy-Conista tulee oma pelaajansa, ja sitä pidetään vaakasuunnassa. SL ja SR toimivat LB- ja RB-painikkeina.</string>
     <string name="setup_animations">Animaatiot</string>
     <string name="setup_low_storage_warning">Varoita, kun tallennustila on vähissä</string>
     <string name="setup_low_storage_warning_hint">Kysy ennen Steamin käynnistämistä, kun vapaata tilaa on alle 10 Gt.</string>

@@ -1113,6 +1113,8 @@
     <string name="ctrl_keyboard_button">Bouton clavier</string>
     <string name="ctrl_joycon_vr">Joy-Con comme manettes VR</string>
     <string name="ctrl_joycon_vr_hint">Pendant que SteamVR tourne, chaque Joy-Con devient une main. Pointez-le devant vous et maintenez Home ou Capture pour le recentrer.</string>
+    <string name="ctrl_joycon_separate">Joy-Con comme manettes séparées</string>
+    <string name="ctrl_joycon_separate_hint">Chaque Joy-Con devient un joueur à part entière, tenu à l\'horizontale. SL et SR servent de LB et RB.</string>
     <string name="setup_animations">Animations</string>
     <string name="setup_low_storage_warning">Avertir quand l\'espace de stockage est faible</string>
     <string name="setup_low_storage_warning_hint">Demander avant de lancer Steam lorsque l\'espace libre est inférieur à 10 Go.</string>

@@ -93,6 +93,43 @@ object JoyCon {
     }
 
     @JvmStatic
+    fun sidewaysKey(side: Int, scanCode: Int): Int = when (side) {
+        LEFT -> when (scanCode) {
+            BTN_DPAD_LEFT -> KeyEvent.KEYCODE_BUTTON_A
+            BTN_DPAD_DOWN -> KeyEvent.KEYCODE_BUTTON_B
+            BTN_DPAD_UP -> KeyEvent.KEYCODE_BUTTON_X
+            BTN_DPAD_RIGHT -> KeyEvent.KEYCODE_BUTTON_Y
+            BTN_TR -> KeyEvent.KEYCODE_BUTTON_L1
+            BTN_TR2 -> KeyEvent.KEYCODE_BUTTON_R1
+            BTN_TL -> KeyEvent.KEYCODE_BUTTON_L2
+            BTN_TL2 -> KeyEvent.KEYCODE_BUTTON_R2
+            BTN_SELECT -> KeyEvent.KEYCODE_BUTTON_START
+            BTN_Z -> KeyEvent.KEYCODE_BUTTON_SELECT
+            BTN_THUMBL -> KeyEvent.KEYCODE_BUTTON_THUMBL
+            else -> KeyEvent.KEYCODE_UNKNOWN
+        }
+        RIGHT -> when (scanCode) {
+            BTN_EAST -> KeyEvent.KEYCODE_BUTTON_A
+            BTN_NORTH -> KeyEvent.KEYCODE_BUTTON_B
+            BTN_SOUTH -> KeyEvent.KEYCODE_BUTTON_X
+            BTN_WEST -> KeyEvent.KEYCODE_BUTTON_Y
+            BTN_TL -> KeyEvent.KEYCODE_BUTTON_L1
+            BTN_TL2 -> KeyEvent.KEYCODE_BUTTON_R1
+            BTN_TR -> KeyEvent.KEYCODE_BUTTON_L2
+            BTN_TR2 -> KeyEvent.KEYCODE_BUTTON_R2
+            BTN_START -> KeyEvent.KEYCODE_BUTTON_START
+            BTN_MODE -> KeyEvent.KEYCODE_BUTTON_MODE
+            BTN_THUMBR -> KeyEvent.KEYCODE_BUTTON_THUMBL
+            else -> KeyEvent.KEYCODE_UNKNOWN
+        }
+        else -> KeyEvent.KEYCODE_UNKNOWN
+    }
+
+    @JvmStatic
+    fun sidewaysStick(side: Int, x: Float, y: Float): FloatArray =
+        if (side == LEFT) floatArrayOf(y, -x) else floatArrayOf(-y, x)
+
+    @JvmStatic
     fun normalize(event: KeyEvent): KeyEvent {
         val side = side(event.device)
         if (side < 0) return event
