@@ -104,12 +104,54 @@ public final class RuntimeFileTree {
 
     static java.util.List<String> existingUserPaths(File from, File to) throws IOException {
         java.util.List<String> paths = new java.util.ArrayList<>();
-        for (String rel : userPaths(from, to)) {
+        java.util.Set<String> builtIn = userPaths(from, to);
+        for (String rel : builtIn) {
             if (!exists(safePath(from, rel).toPath())) continue;
             if (rel.startsWith("usr/share/applications/") && exists(safePath(to, rel).toPath())) continue;
             paths.add(rel);
         }
+        java.util.List<String> kept = new java.util.ArrayList<>();
+        for (String rel : keptPaths(from)) {
+            // A carry replaces its destination, so a listed path must not contain or sit inside another carried one.
+            if (overlaps(rel, builtIn) || overlaps(rel, kept)) continue;
+            try {
+                if (!exists(safePath(from, rel).toPath()) || exists(safePath(to, rel).toPath())) continue;
+            } catch (IOException | java.nio.file.InvalidPathException e) {
+                continue;
+            }
+            kept.add(rel);
+        }
+        paths.addAll(kept);
         return paths;
+    }
+
+    static final String KEEP_LIST = "root/.config/droiddeck/keep-on-update";
+
+    static java.util.List<String> keptPaths(File tree) throws IOException {
+        java.util.List<String> paths = new java.util.ArrayList<>();
+        Path list = new File(tree, KEEP_LIST).toPath();
+        if (!Files.isRegularFile(list, LinkOption.NOFOLLOW_LINKS)) return paths;
+        String text = new String(Files.readAllBytes(list), java.nio.charset.StandardCharsets.UTF_8);
+        for (String line : text.split("\n")) {
+            line = line.trim();
+            if (line.isEmpty() || line.startsWith("#")) continue;
+            java.util.List<String> parts = new java.util.ArrayList<>();
+            boolean valid = true;
+            for (String part : line.split("/")) {
+                if (part.isEmpty() || part.equals(".")) continue;
+                if (part.equals("..")) { valid = false; break; }
+                parts.add(part);
+            }
+            if (valid && !parts.isEmpty()) paths.add(String.join("/", parts));
+        }
+        paths.sort(java.util.Comparator.comparingInt(String::length));
+        return paths;
+    }
+
+    private static boolean overlaps(String rel, java.util.Collection<String> others) {
+        for (String other : others)
+            if (rel.equals(other) || rel.startsWith(other + "/") || other.startsWith(rel + "/")) return true;
+        return false;
     }
 
     private static final String[] STALE_HOME_STATE = {

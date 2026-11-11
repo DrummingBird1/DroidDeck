@@ -75,6 +75,48 @@ class RuntimeUserDataCarryTest {
         assertEquals("new runtime", File(staging, "usr/share/applications/droiddeck-return-gaming.desktop").readText())
     }
 
+    @Test fun foldersListedInTheHomeAreKeptUnlessTheNewRuntimeShipsThem() {
+        val old = tmp.newFolder("old").also {
+            put(it, RuntimeFileTree.KEEP_LIST, listOf("# Homebrew", "", "/home/linuxbrew", "/home/linuxbrew/.linuxbrew",
+                "opt/tools/", "/usr/bin", "/opt", "/root/save.dat", "/srv/../etc", "/missing").joinToString("\n"))
+            put(it, "root/save.dat", "mine")
+            put(it, "home/linuxbrew/.linuxbrew/bin/brew", "brew")
+            put(it, "opt/tools/run.sh", "tool")
+            put(it, "opt/appimages/user/app1/app.AppImage")
+            put(it, "usr/bin/tool", "old system file")
+            put(it, "etc/hosts", "old hosts")
+        }
+        val staging = tmp.newFolder("new").also {
+            put(it, "root/.bashrc", "shipped")
+            put(it, "usr/bin/tool", "new system file")
+            put(it, "etc/hosts", "new hosts")
+            File(it, "home").mkdirs()
+        }
+
+        val paths = RuntimeFileTree.existingUserPaths(old, staging)
+
+        assertEquals(listOf("root", "opt/appimages/user", "opt/tools", "home/linuxbrew"), paths)
+        RuntimeFileTree.carryUserData(old, staging, false, paths)
+        assertEquals("brew", File(staging, "home/linuxbrew/.linuxbrew/bin/brew").readText())
+        assertEquals("tool", File(staging, "opt/tools/run.sh").readText())
+        assertTrue(File(staging, "opt/appimages/user/app1/app.AppImage").exists())
+        assertEquals("mine", File(staging, "root/save.dat").readText())
+        assertEquals("new system file", File(staging, "usr/bin/tool").readText())
+        assertEquals("new hosts", File(staging, "etc/hosts").readText())
+    }
+
+    @Test fun aListedPathBehindASymlinkIsLeftOutWithoutStoppingTheUpdate() {
+        val old = tmp.newFolder("old").also {
+            put(it, RuntimeFileTree.KEEP_LIST, "/lib/custom\n/home/linuxbrew\n")
+            put(it, "usr/lib/custom/data", "data")
+            put(it, "home/linuxbrew/bin/brew", "brew")
+            Files.createSymbolicLink(File(it, "lib").toPath(), File("usr/lib").toPath())
+        }
+        val staging = tmp.newFolder("new")
+
+        assertEquals(listOf("root", "home/linuxbrew"), RuntimeFileTree.existingUserPaths(old, staging))
+    }
+
     @Test fun cachesTiedToThePreviousRuntimeAreDropped() {
         val root = tmp.newFolder("rt")
         val keep = listOf("root/.cache/mozilla/cache2/entry", "root/.cache/droiddeck/session.log",
