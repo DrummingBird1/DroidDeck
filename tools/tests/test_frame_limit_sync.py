@@ -96,6 +96,24 @@ const change = async next => { rates = next; notify.forEach(callback => callback
   window.__droiddeckFrameLimit.schedule();
   await fire();
   assert.deepStrictEqual(writes, [144, 120, 144, 144, 144], 'a rejected write is caught and tried again');
+  settingsStore.clientSettings.gamescope_app_target_framerate = 48;
+  window.__droiddeckFrameLimit.schedule();
+  await fire();
+  await change([24, 30, 40, 60, 120]);
+  await fire();
+  assert.deepStrictEqual(writes, [144, 120, 144, 144, 144, 120], '48 is not offered at 120 Hz');
+  await change([36, 48, 72, 144]);
+  await fire();
+  assert.deepStrictEqual(writes, [144, 120, 144, 144, 144, 120, 48], 'the chosen limit comes back once the panel offers it again');
+  await change([24, 30, 40, 60, 120]);
+  await fire();
+  settingsStore.clientSettings.gamescope_app_target_framerate = 40;
+  window.__droiddeckFrameLimit.schedule();
+  await fire();
+  await change([36, 48, 72, 144]);
+  await fire();
+  assert.deepStrictEqual(writes, [144, 120, 144, 144, 144, 120, 48, 120, 144],
+    'a limit picked after the correction replaces the earlier choice');
   delete window.__droiddeckFrameLimit;
   webpackChunksteamui.push = ([, , callback]) => callback(webpack({ 1: modules[1], 2: modules[2] }));
   assert.strictEqual(eval(script), 'unavailable');
@@ -104,7 +122,7 @@ const change = async next => { rates = next; notify.forEach(callback => callback
 
 
 class FrameLimitSyncTest(unittest.TestCase):
-    def test_limit_is_kept_when_offered_and_moved_to_the_highest_value_otherwise(self):
+    def test_limit_is_kept_when_offered_moved_to_the_highest_value_otherwise_and_restored_when_offered_again(self):
         with tempfile.TemporaryDirectory() as directory:
             script = Path(directory) / "frame_limit.js"
             script.write_text(LIVE["FRAME_LIMIT_JS"])
