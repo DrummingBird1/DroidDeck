@@ -756,7 +756,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback, com.droidde
                 super.dispatchPointerCaptureChanged(hasCapture)
                 Log.i(TAG, "pointer capture " + if (hasCapture) "on" else "off")
                 if (!hasCapture) {
-                    releaseHeldGuestInput()
+                    releaseHeldGuestButtons()
                     uiHandler.postDelayed(::updatePointerCapture, 250)
                 }
             }
@@ -1177,6 +1177,7 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback, com.droidde
                     if (drawerOpen) {
                         syncLossless()
                         releasePads()
+                        releaseHeldGuestKeys()
                         androidx.compose.runtime.withFrameNanos { }
                         val requested = focusDrawer()
                         Log.i(TAG, "drawer root focus requested=$requested docked=$drawerDocked")
@@ -4762,8 +4763,16 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback, com.droidde
         SessionState.mode == SessionService.MODE_STEAM && AgentGuest.steamKeyboard
 
     private fun releaseHeldGuestInput() {
+        releaseHeldGuestButtons()
+        releaseHeldGuestKeys()
+    }
+
+    private fun releaseHeldGuestButtons() {
         mouseBackInput.cancel()
         heldButtons.release(1 or 2 or 8 or 16)
+    }
+
+    private fun releaseHeldGuestKeys() {
         guestKeysDown.toList().forEach { sendGuestKey(it, false) }
         heldKeys.release(8 or 16 or 32)
     }

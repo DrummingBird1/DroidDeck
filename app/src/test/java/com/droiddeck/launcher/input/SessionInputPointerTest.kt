@@ -186,6 +186,16 @@ class SessionInputPointerTest {
         assertEquals(29 to 0, CompositorShadow.keys.last())
     }
 
+    @Test fun pointerCaptureLossReleasesMouseButtonsAndKeepsHeldKeysUntilTheMenuOpens() {
+        ReflectionHelpers.getField<HeldInput>(activity, "heldKeys").set(8, 17, true)
+        ReflectionHelpers.getField<HeldInput>(activity, "heldButtons").set(8, 273, true)
+        invoke("releaseHeldGuestButtons")
+        assertEquals(listOf(17 to 1), CompositorShadow.keys)
+        assertEquals(listOf(Triple(3, 273, 1), Triple(3, 273, 0)), CompositorShadow.events)
+        invoke("releaseHeldGuestKeys")
+        assertEquals(listOf(17 to 1, 17 to 0), CompositorShadow.keys)
+    }
+
     @Test fun horizontalWheelUsesTheSameDirectionInBothMouseBackends() {
         output.scrollHorizontal(2)
         assertEquals(listOf(Triple(11, 0, 240)), CompositorShadow.events)
