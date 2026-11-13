@@ -995,7 +995,7 @@ void droiddeck_color_commit(struct wl_resource *surface) {
             pthread_mutex_unlock(&g_mu);
             if (!g_zero_copy)
                 droiddeck_log(TAG, "%s: zero-copy presentation is OFF, so its HDR frames are composed into the HDR picture "
-                           "(one extra pass per frame) - switch Zero-copy presentation on for the direct path", who);
+                           "(one extra pass per frame) - it turns on only when the session's HDR setting is on", who);
         }
     } else if (old) {
         droiddeck_log(TAG, "%s: image description #%u removed - its frames are sRGB again", who, old->c.identity);
