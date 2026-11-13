@@ -2961,6 +2961,8 @@
     <string name="storage_item_custom_detail">Niciun joc nu îl folosește. Reinstalează-l din Componente dacă ai nevoie.</string>
     <string name="storage_item_shaders">Cache-ul de shadere al jocurilor instalate</string>
     <string name="storage_item_shaders_detail">Se reconstruiește în timpul jocului. Primele minute din fiecare joc vor avea din nou sacadări.</string>
+    <string name="storage_item_prefix_temp">Fișiere temporare din prefixele jocurilor</string>
+    <string name="storage_item_prefix_temp_detail">Folderele temporare Windows și dump-urile de eroare. Salvările și setările rămân.</string>
     <string name="storage_tag_safe">Sigur</string>
     <string name="storage_tag_unused">Nefolosit</string>
     <string name="storage_tag_stutter">Sacadări</string>

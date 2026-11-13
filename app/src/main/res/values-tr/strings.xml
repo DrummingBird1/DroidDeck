@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Hiçbir oyun buna ayarlı değil. Gerekirse Bileşenler\'den yeniden yükleyin.</string>
     <string name="storage_item_shaders">Yüklü oyunların gölgelendirici önbellekleri</string>
     <string name="storage_item_shaders_detail">Oynadıkça yeniden oluşur. Her oyunun ilk dakikalarında yine takılma olur.</string>
+    <string name="storage_item_prefix_temp">Oyun öneklerindeki geçici dosyalar</string>
+    <string name="storage_item_prefix_temp_detail">Windows geçici klasörleri ve çökme dökümleri. Kayıtlar ve ayarlar korunur.</string>
     <string name="storage_tag_safe">Güvenli</string>
     <string name="storage_tag_unused">Kullanılmıyor</string>
     <string name="storage_tag_stutter">Takılma</string>

@@ -2907,6 +2907,8 @@
     <string name="storage_item_custom_detail">没有游戏使用它。如需使用，请在组件中重新安装。</string>
     <string name="storage_item_shaders">已安装游戏的着色器缓存</string>
     <string name="storage_item_shaders_detail">会随着游玩重新生成。每个游戏开头几分钟会再次卡顿。</string>
+    <string name="storage_item_prefix_temp">游戏前缀中的临时文件</string>
+    <string name="storage_item_prefix_temp_detail">Windows 临时文件夹和崩溃转储。存档和设置会保留。</string>
     <string name="storage_tag_safe">安全</string>
     <string name="storage_tag_unused">未使用</string>
     <string name="storage_tag_stutter">卡顿</string>

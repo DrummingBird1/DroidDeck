@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">कोई गेम इसे इस्तेमाल नहीं करता। ज़रूरत हो तो कॉम्पोनेंट में फिर से इंस्टॉल करें।</string>
     <string name="storage_item_shaders">इंस्टॉल किए गेम का शेडर कैश</string>
     <string name="storage_item_shaders_detail">खेलते समय फिर बनता है। हर गेम के पहले कुछ मिनट फिर अटकेंगे।</string>
+    <string name="storage_item_prefix_temp">गेम प्रीफ़िक्स में अस्थायी फ़ाइलें</string>
+    <string name="storage_item_prefix_temp_detail">Windows के अस्थायी फ़ोल्डर और क्रैश डंप। सेव और सेटिंग बने रहते हैं।</string>
     <string name="storage_tag_safe">सुरक्षित</string>
     <string name="storage_tag_unused">अप्रयुक्त</string>
     <string name="storage_tag_stutter">अटकना</string>

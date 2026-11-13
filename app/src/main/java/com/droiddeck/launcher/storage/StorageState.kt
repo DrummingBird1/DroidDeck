@@ -14,7 +14,7 @@ import com.droiddeck.launcher.runtime.FlatpakManager
 import com.droiddeck.launcher.session.ComponentsManager
 import com.droiddeck.launcher.session.SessionState
 
-enum class CleanItem { OLD_TOOLS, LEFTOVERS, LEFTOVERS_UNSURE, LOGS, UNUSED_CUSTOM, UNUSED_COMPONENTS, SHADERS }
+enum class CleanItem { OLD_TOOLS, LEFTOVERS, LEFTOVERS_UNSURE, LOGS, PREFIX_TEMP, UNUSED_CUSTOM, UNUSED_COMPONENTS, SHADERS }
 
 object StorageState {
     private const val TAG = "StorageState"
@@ -74,12 +74,13 @@ object StorageState {
         CleanItem.LEFTOVERS -> report.leftovers.filter { it.safe }.sumOf { it.bytes }
         CleanItem.LEFTOVERS_UNSURE -> report.leftovers.filter { !it.safe }.sumOf { it.bytes }
         CleanItem.LOGS -> report.logBytes
+        CleanItem.PREFIX_TEMP -> report.prefixTemp
         CleanItem.UNUSED_CUSTOM -> report.unusedTools.filter { it.reason == ToolReason.CUSTOM }.sumOf { it.bytes }
         CleanItem.UNUSED_COMPONENTS -> report.unusedComponents.sumOf { it.bytes }
         CleanItem.SHADERS -> report.installedShaders
     }
 
-    val SAFE = setOf(CleanItem.OLD_TOOLS, CleanItem.LEFTOVERS, CleanItem.LOGS)
+    val SAFE = setOf(CleanItem.OLD_TOOLS, CleanItem.LEFTOVERS, CleanItem.LOGS, CleanItem.PREFIX_TEMP)
 
     fun safeBytes(report: StorageReport): Long = SAFE.sumOf { bytes(report, it) }
 
@@ -201,6 +202,7 @@ object StorageState {
             CleanItem.LEFTOVERS -> report.leftovers.filter { it.safe }.forEach(::deleteLeftover)
             CleanItem.LEFTOVERS_UNSURE -> report.leftovers.filter { !it.safe }.forEach(::deleteLeftover)
             CleanItem.LOGS -> report.logs.forEach { FileOps.delete(it) }
+            CleanItem.PREFIX_TEMP -> report.games.flatMap { it.tempDirs }.forEach { FileOps.clear(it) }
             CleanItem.SHADERS -> report.games.mapNotNull { it.shaderDir }.forEach { FileOps.delete(it) }
         }
     }

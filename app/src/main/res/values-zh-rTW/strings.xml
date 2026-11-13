@@ -2903,6 +2903,8 @@
     <string name="storage_item_custom_detail">沒有遊戲使用它。如需使用，請在元件中重新安裝。</string>
     <string name="storage_item_shaders">已安裝遊戲的著色器快取</string>
     <string name="storage_item_shaders_detail">會隨著遊玩重新產生。每個遊戲開頭幾分鐘會再次卡頓。</string>
+    <string name="storage_item_prefix_temp">遊戲前綴中的暫存檔案</string>
+    <string name="storage_item_prefix_temp_detail">Windows 暫存資料夾和當機傾印。存檔和設定會保留。</string>
     <string name="storage_tag_safe">安全</string>
     <string name="storage_tag_unused">未使用</string>
     <string name="storage_tag_stutter">卡頓</string>

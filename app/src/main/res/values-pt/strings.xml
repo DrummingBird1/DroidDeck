@@ -2961,6 +2961,8 @@
     <string name="storage_item_custom_detail">Nenhum jogo usa. Instale de novo em Componentes se precisar.</string>
     <string name="storage_item_shaders">Cache de shaders dos jogos instalados</string>
     <string name="storage_item_shaders_detail">Voltam a ser criados jogando. Os primeiros minutos de cada jogo voltam a engasgar.</string>
+    <string name="storage_item_prefix_temp">Arquivos temporários nos prefixos dos jogos</string>
+    <string name="storage_item_prefix_temp_detail">Pastas temporárias do Windows e despejos de falhas. Salvamentos e configurações continuam.</string>
     <string name="storage_tag_safe">Seguro</string>
     <string name="storage_tag_unused">Sem uso</string>
     <string name="storage_tag_stutter">Engasgos</string>

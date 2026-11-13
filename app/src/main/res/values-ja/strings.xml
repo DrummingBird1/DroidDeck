@@ -2903,6 +2903,8 @@
     <string name="storage_item_custom_detail">どのゲームも使用していません。使用するにはコンポーネントで再インストールしてください。</string>
     <string name="storage_item_shaders">インストール済みゲームのシェーダーキャッシュ</string>
     <string name="storage_item_shaders_detail">プレイすると再生成されます。各ゲームの最初の数分は再びカクつきます。</string>
+    <string name="storage_item_prefix_temp">ゲームのプレフィックス内の一時ファイル</string>
+    <string name="storage_item_prefix_temp_detail">Windowsの一時フォルダーとクラッシュダンプ。セーブデータと設定は残ります。</string>
     <string name="storage_tag_safe">安全</string>
     <string name="storage_tag_unused">未使用</string>
     <string name="storage_tag_stutter">カクつき</string>

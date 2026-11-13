@@ -3073,6 +3073,8 @@
     <string name="storage_item_custom_detail">Ни одна игра его не использует. При необходимости поставьте заново в разделе «Компоненты».</string>
     <string name="storage_item_shaders">Кэш шейдеров установленных игр</string>
     <string name="storage_item_shaders_detail">Создаётся заново во время игры. Первые минуты каждой игры снова будут с рывками.</string>
+    <string name="storage_item_prefix_temp">Временные файлы в префиксах игр</string>
+    <string name="storage_item_prefix_temp_detail">Временные папки Windows и дампы сбоев. Сохранения и настройки остаются.</string>
     <string name="storage_tag_safe">Безопасно</string>
     <string name="storage_tag_unused">Не используется</string>
     <string name="storage_tag_stutter">Рывки</string>

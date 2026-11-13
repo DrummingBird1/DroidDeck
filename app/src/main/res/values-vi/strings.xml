@@ -2903,6 +2903,8 @@
     <string name="storage_item_custom_detail">Không game nào dùng. Cài lại trong Thành phần nếu cần.</string>
     <string name="storage_item_shaders">Bộ nhớ đệm shader của game đã cài</string>
     <string name="storage_item_shaders_detail">Được tạo lại khi chơi. Vài phút đầu của mỗi game sẽ giật lại.</string>
+    <string name="storage_item_prefix_temp">Tệp tạm trong prefix của game</string>
+    <string name="storage_item_prefix_temp_detail">Thư mục tạm của Windows và bản kết xuất sự cố. Bản lưu và thiết lập vẫn giữ.</string>
     <string name="storage_tag_safe">An toàn</string>
     <string name="storage_tag_unused">Không dùng</string>
     <string name="storage_tag_stutter">Giật</string>

@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Ingen spil bruger det. Installer det igen under Komponenter, hvis du får brug for det.</string>
     <string name="storage_item_shaders">Shadercache for installerede spil</string>
     <string name="storage_item_shaders_detail">Genopbygges, mens du spiller. De første minutter af hvert spil hakker igen.</string>
+    <string name="storage_item_prefix_temp">Midlertidige filer i spillenes prefixer</string>
+    <string name="storage_item_prefix_temp_detail">Midlertidige Windows-mapper og nedbrudsdumps. Gemte spil og indstillinger bevares.</string>
     <string name="storage_tag_safe">Sikkert</string>
     <string name="storage_tag_unused">Ubrugt</string>
     <string name="storage_tag_stutter">Hak</string>

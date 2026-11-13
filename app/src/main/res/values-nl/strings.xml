@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Geen game gebruikt het. Installeer het opnieuw bij Componenten als je het nodig hebt.</string>
     <string name="storage_item_shaders">Shadercache van geïnstalleerde games</string>
     <string name="storage_item_shaders_detail">Wordt opnieuw opgebouwd tijdens het spelen. De eerste minuten van elke game haperen weer.</string>
+    <string name="storage_item_prefix_temp">Tijdelijke bestanden in game-prefixen</string>
+    <string name="storage_item_prefix_temp_detail">Tijdelijke mappen van Windows en crashdumps. Opgeslagen spellen en instellingen blijven.</string>
     <string name="storage_tag_safe">Veilig</string>
     <string name="storage_tag_unused">Ongebruikt</string>
     <string name="storage_tag_stutter">Haperingen</string>

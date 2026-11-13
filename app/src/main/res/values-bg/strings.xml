@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Никоя игра не го използва. Инсталирай го отново от Компоненти, ако ти потрябва.</string>
     <string name="storage_item_shaders">Кеш на шейдърите за инсталираните игри</string>
     <string name="storage_item_shaders_detail">Изгражда се отново по време на игра. Първите минути на всяка игра отново ще накъсват.</string>
+    <string name="storage_item_prefix_temp">Временни файлове в префиксите на игрите</string>
+    <string name="storage_item_prefix_temp_detail">Временните папки на Windows и дъмповете от сривове. Записите и настройките остават.</string>
     <string name="storage_tag_safe">Безопасно</string>
     <string name="storage_tag_unused">Неизползвано</string>
     <string name="storage_tag_stutter">Накъсване</string>

@@ -2961,6 +2961,8 @@
     <string name="storage_item_custom_detail">Ningún juego lo usa. Reinstálalo desde Componentes si lo necesitas.</string>
     <string name="storage_item_shaders">Cachés de shaders de juegos instalados</string>
     <string name="storage_item_shaders_detail">Se reconstruyen al jugar. Los primeros minutos de cada juego vuelven a dar tirones.</string>
+    <string name="storage_item_prefix_temp">Archivos temporales en los prefijos de juegos</string>
+    <string name="storage_item_prefix_temp_detail">Carpetas temporales de Windows y volcados de fallos. Se conservan las partidas y los ajustes.</string>
     <string name="storage_tag_safe">Seguro</string>
     <string name="storage_tag_unused">Sin usar</string>
     <string name="storage_tag_stutter">Tirones</string>

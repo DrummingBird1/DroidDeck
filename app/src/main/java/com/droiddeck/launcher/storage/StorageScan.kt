@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.StatFs
 import android.system.Os
 import android.system.OsConstants
+import com.droiddeck.launcher.files.FileOps
 import com.droiddeck.launcher.frontend.Library
 import com.droiddeck.launcher.runtime.LinuxRuntime
 import android.util.Log
@@ -20,6 +21,7 @@ class GameUsage(
     val appId: Int, val name: String, val art: File?, val library: String, val internal: Boolean, val lastPlayed: Long,
     val game: Long, val prefix: Long, val shaders: Long, val workshop: Long, val shaderDir: File?,
     val x64: Boolean = false, val prefixDir: File? = null,
+    val temp: Long = 0, val tempDirs: List<File> = emptyList(),
 ) {
     val data: Long get() = prefix + shaders + workshop
     val total: Long get() = game + data
@@ -67,6 +69,7 @@ class StorageReport(
     val unusedTools: List<ToolUsage> get() = tools.filter { it.state == ToolState.UNUSED }
     val gamesOnSd: Int get() = games.count { !it.internal }
     val unusedComponents: List<ComponentUsage> get() = components.filter { !it.inUse }
+    val prefixTemp: Long get() = games.sumOf { it.temp }
     val flatpakCache: Long get() = (flatpak - flatpakApps.sumOf { it.bytes } - flatpakRuntimes).coerceAtLeast(0)
 }
 
@@ -90,6 +93,15 @@ object StorageScan {
     }
 
     fun steamRoot(context: Context) = SessionPrefs.steamRoot(context, "arm64")
+
+    /** Windows' disposable folders; GameSaves leaves them out of exported saves too. */
+    private val TEMP_DIRS = listOf("users/steamuser/AppData/Local/Temp", "users/steamuser/AppData/Local/CrashDumps", "windows/temp")
+
+    internal fun prefixTemp(prefix: File): List<File> = TEMP_DIRS.mapNotNull { path ->
+        "pfx/drive_c/$path".split('/').fold<String, File?>(prefix) { dir, name ->
+            dir?.listFiles()?.firstOrNull { it.name.equals(name, ignoreCase = true) && it.isDirectory && !FileOps.isSymlink(it) }
+        }
+    }
 
     fun scan(context: Context): StorageReport {
         val walker = Walker()
@@ -176,13 +188,15 @@ object StorageScan {
                 val compatRoot = File(lib.data, "steamapps/compatdata").takeIf { it.isDirectory } ?: File(lib.root, "steamapps/compatdata")
                 val prefixDir = File(compatRoot, m.appId.toString()).takeIf { it.isDirectory }
                 val prefix = prefixDir?.let { walker.measure(it) } ?: 0
+                val tempDirs = prefixDir?.let { prefixTemp(it) }.orEmpty()
+                val temp = tempDirs.sumOf { dir -> dir.listFiles().orEmpty().sumOf { walker.measure(it) } }
                 val shaderDir = File(lib.data, "steamapps/shadercache/${m.appId}").takeIf { it.isDirectory }
                 val shaders = shaderDir?.let { walker.measure(it) } ?: 0
                 val workshop = File(lib.root, "steamapps/workshop/content/${m.appId}").takeIf { it.isDirectory }?.let { walker.measure(it) } ?: 0
                 val known = art[lib.x64]?.get(m.appId)
                 games.add(GameUsage(
                     m.appId, known?.name ?: m.name, known?.art, lib.label, lib.internal, m.lastPlayed,
-                    gameBytes, prefix, shaders, workshop, shaderDir, lib.x64, prefixDir,
+                    gameBytes, prefix, shaders, workshop, shaderDir, lib.x64, prefixDir, temp, tempDirs,
                 ))
             }
         }

@@ -3362,6 +3362,8 @@
     <string name="storage_item_custom_detail">No game is set to it. Reinstall it from Components if you need it.</string>
     <string name="storage_item_shaders">Shader caches of installed games</string>
     <string name="storage_item_shaders_detail">Rebuilt as you play. The first minutes of each game stutter again.</string>
+    <string name="storage_item_prefix_temp">Temporary files in game prefixes</string>
+    <string name="storage_item_prefix_temp_detail">Windows temp folders and crash dumps. Saves and settings stay.</string>
     <string name="storage_tag_safe">Safe</string>
     <string name="storage_tag_unused">Not used</string>
     <string name="storage_tag_stutter">Stutter</string>

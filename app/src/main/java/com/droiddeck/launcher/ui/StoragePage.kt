@@ -513,6 +513,7 @@ private fun CleanRow(item: CleanItem, report: StorageReport, on: Boolean, modifi
         CleanItem.LEFTOVERS -> Triple(stringResource(R.string.storage_item_leftovers), pluralStringResource(R.plurals.storage_item_leftovers_detail, safeCount, safeCount), 0)
         CleanItem.LEFTOVERS_UNSURE -> Triple(stringResource(R.string.storage_item_leftovers_unsure), pluralStringResource(R.plurals.storage_item_leftovers_unsure_detail, unsureCount, unsureCount), 2)
         CleanItem.LOGS -> Triple(stringResource(R.string.storage_item_logs), stringResource(R.string.storage_item_logs_detail), 0)
+        CleanItem.PREFIX_TEMP -> Triple(stringResource(R.string.storage_item_prefix_temp), stringResource(R.string.storage_item_prefix_temp_detail), 0)
         CleanItem.UNUSED_CUSTOM -> Triple(custom.joinToString(", ") { it.name }, stringResource(R.string.storage_item_custom_detail), 1)
         CleanItem.UNUSED_COMPONENTS -> Triple(stringResource(R.string.storage_item_components), unusedLabels.joinToString(", "), 1)
         CleanItem.SHADERS -> Triple(stringResource(R.string.storage_item_shaders), stringResource(R.string.storage_item_shaders_detail), 2)

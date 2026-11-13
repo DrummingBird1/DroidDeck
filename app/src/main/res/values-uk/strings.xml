@@ -2990,6 +2990,8 @@
     <string name="storage_item_custom_detail">Жодна гра його не використовує. За потреби встановіть знову в Компоненти.</string>
     <string name="storage_item_shaders">Кеш шейдерів встановлених ігор</string>
     <string name="storage_item_shaders_detail">Відновлюється під час гри. Перші хвилини кожної гри знову будуть із присіданнями.</string>
+    <string name="storage_item_prefix_temp">Тимчасові файли в префіксах ігор</string>
+    <string name="storage_item_prefix_temp_detail">Тимчасові теки Windows і дампи збоїв. Збереження та налаштування залишаються.</string>
     <string name="storage_tag_safe">Безпечно</string>
     <string name="storage_tag_unused">Не використовується</string>
     <string name="storage_tag_stutter">Присідання</string>

@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Inget spel använder det. Installera om det under Komponenter om du behöver det.</string>
     <string name="storage_item_shaders">Shadercache för installerade spel</string>
     <string name="storage_item_shaders_detail">Byggs upp igen medan du spelar. Första minuterna av varje spel hackar igen.</string>
+    <string name="storage_item_prefix_temp">Tillfälliga filer i spelens prefix</string>
+    <string name="storage_item_prefix_temp_detail">Windows tillfälliga mappar och kraschdumpar. Sparningar och inställningar finns kvar.</string>
     <string name="storage_tag_safe">Säkert</string>
     <string name="storage_tag_unused">Oanvänt</string>
     <string name="storage_tag_stutter">Hackningar</string>

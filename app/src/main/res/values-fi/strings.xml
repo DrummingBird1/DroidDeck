@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Mikään peli ei käytä tätä. Asenna se uudelleen kohdassa Komponentit, jos tarvitset sitä.</string>
     <string name="storage_item_shaders">Asennettujen pelien shadervälimuisti</string>
     <string name="storage_item_shaders_detail">Rakentuu uudelleen pelaamisen aikana. Jokaisen pelin ensimmäiset minuutit nykivät taas.</string>
+    <string name="storage_item_prefix_temp">Pelien prefixien väliaikaistiedostot</string>
+    <string name="storage_item_prefix_temp_detail">Windowsin väliaikaiskansiot ja kaatumisvedokset. Tallennukset ja asetukset säilyvät.</string>
     <string name="storage_tag_safe">Turvallinen</string>
     <string name="storage_tag_unused">Käyttämätön</string>
     <string name="storage_tag_stutter">Nykiminen</string>

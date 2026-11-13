@@ -2903,6 +2903,8 @@
     <string name="storage_item_custom_detail">Tiada permainan menggunakannya. Pasang semula di Komponen jika perlu.</string>
     <string name="storage_item_shaders">Cache shader permainan yang dipasang</string>
     <string name="storage_item_shaders_detail">Dibina semula semasa bermain. Beberapa minit pertama setiap permainan akan tersekat-sekat semula.</string>
+    <string name="storage_item_prefix_temp">Fail sementara dalam prefix permainan</string>
+    <string name="storage_item_prefix_temp_detail">Folder sementara Windows dan longgokan ranap. Simpanan dan tetapan kekal.</string>
     <string name="storage_tag_safe">Selamat</string>
     <string name="storage_tag_unused">Tidak digunakan</string>
     <string name="storage_tag_stutter">Tersekat</string>

@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Κανένα παιχνίδι δεν το χρησιμοποιεί. Εγκατέστησέ το ξανά στα Στοιχεία αν το χρειαστείς.</string>
     <string name="storage_item_shaders">Προσωρινή μνήμη shaders των εγκατεστημένων παιχνιδιών</string>
     <string name="storage_item_shaders_detail">Ξαναχτίζεται όσο παίζεις. Τα πρώτα λεπτά κάθε παιχνιδιού θα κολλάνε ξανά.</string>
+    <string name="storage_item_prefix_temp">Προσωρινά αρχεία στα prefix των παιχνιδιών</string>
+    <string name="storage_item_prefix_temp_detail">Οι προσωρινοί φάκελοι των Windows και τα αρχεία κατάρρευσης. Οι αποθηκεύσεις και οι ρυθμίσεις παραμένουν.</string>
     <string name="storage_tag_safe">Ασφαλή</string>
     <string name="storage_tag_unused">Αχρησιμοποίητα</string>
     <string name="storage_tag_stutter">Κολλήματα</string>

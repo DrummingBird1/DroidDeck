@@ -2903,6 +2903,8 @@
     <string name="storage_item_custom_detail">어떤 게임도 사용하지 않습니다. 사용하려면 구성 요소에서 다시 설치하세요.</string>
     <string name="storage_item_shaders">설치된 게임의 셰이더 캐시</string>
     <string name="storage_item_shaders_detail">플레이하면 다시 생성됩니다. 게임마다 첫 몇 분은 다시 끊깁니다.</string>
+    <string name="storage_item_prefix_temp">게임 프리픽스의 임시 파일</string>
+    <string name="storage_item_prefix_temp_detail">Windows 임시 폴더와 크래시 덤프입니다. 저장 파일과 설정은 유지됩니다.</string>
     <string name="storage_tag_safe">안전</string>
     <string name="storage_tag_unused">사용 안 함</string>
     <string name="storage_tag_stutter">끊김</string>

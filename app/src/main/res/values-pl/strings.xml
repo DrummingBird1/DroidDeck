@@ -2990,6 +2990,8 @@
     <string name="storage_item_custom_detail">Żadna gra tego nie używa. Zainstaluj ponownie w Komponentach, jeśli będzie potrzebne.</string>
     <string name="storage_item_shaders">Pamięć podręczna shaderów zainstalowanych gier</string>
     <string name="storage_item_shaders_detail">Odbuduje się podczas grania. Pierwsze minuty każdej gry znów będą się zacinać.</string>
+    <string name="storage_item_prefix_temp">Pliki tymczasowe w prefiksach gier</string>
+    <string name="storage_item_prefix_temp_detail">Foldery tymczasowe Windows i zrzuty awarii. Zapisy i ustawienia zostają.</string>
     <string name="storage_tag_safe">Bezpieczne</string>
     <string name="storage_tag_unused">Nieużywane</string>
     <string name="storage_tag_stutter">Zacięcia</string>

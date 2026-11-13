@@ -2961,6 +2961,8 @@
     <string name="storage_item_custom_detail">Aucun jeu ne l\'utilise. Réinstallez-le depuis Composants si besoin.</string>
     <string name="storage_item_shaders">Caches de shaders des jeux installés</string>
     <string name="storage_item_shaders_detail">Reconstruits au fil du jeu. Les premières minutes de chaque jeu saccadent à nouveau.</string>
+    <string name="storage_item_prefix_temp">Fichiers temporaires des préfixes de jeux</string>
+    <string name="storage_item_prefix_temp_detail">Dossiers temporaires de Windows et vidages de plantage. Les sauvegardes et les paramètres restent.</string>
     <string name="storage_tag_safe">Sûr</string>
     <string name="storage_tag_unused">Inutilisé</string>
     <string name="storage_tag_stutter">Saccades</string>

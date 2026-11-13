@@ -3048,6 +3048,8 @@
     <string name="storage_item_custom_detail">لا تستخدمه أي لعبة. أعد تثبيته من المكوّنات إذا احتجته.</string>
     <string name="storage_item_shaders">ذاكرة الشيدرات المؤقتة للألعاب المثبَّتة</string>
     <string name="storage_item_shaders_detail">تُبنى من جديد أثناء اللعب. ستعود التقطعات في أول دقائق من كل لعبة.</string>
+    <string name="storage_item_prefix_temp">الملفات المؤقتة في بادئات الألعاب</string>
+    <string name="storage_item_prefix_temp_detail">مجلدات Windows المؤقتة وملفات تفريغ الأعطال. تبقى الحفظات والإعدادات.</string>
     <string name="storage_tag_safe">آمن</string>
     <string name="storage_tag_unused">غير مستخدم</string>
     <string name="storage_tag_stutter">تقطعات</string>

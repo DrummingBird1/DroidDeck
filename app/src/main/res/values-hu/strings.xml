@@ -2932,6 +2932,8 @@
     <string name="storage_item_custom_detail">Egy játék sem használja. Ha kell, telepítsd újra az Összetevők alatt.</string>
     <string name="storage_item_shaders">Telepített játékok shader-gyorsítótára</string>
     <string name="storage_item_shaders_detail">Játék közben újraépül. Minden játék első percei újra akadozni fognak.</string>
+    <string name="storage_item_prefix_temp">Ideiglenes fájlok a játékok prefixeiben</string>
+    <string name="storage_item_prefix_temp_detail">A Windows ideiglenes mappái és összeomlási memóriaképek. A mentések és beállítások megmaradnak.</string>
     <string name="storage_tag_safe">Biztonságos</string>
     <string name="storage_tag_unused">Nem használt</string>
     <string name="storage_tag_stutter">Akadozás</string>

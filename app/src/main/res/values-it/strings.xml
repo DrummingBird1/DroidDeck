@@ -2961,6 +2961,8 @@
     <string name="storage_item_custom_detail">Nessun gioco lo usa. Reinstallalo da Componenti se ti serve.</string>
     <string name="storage_item_shaders">Cache shader dei giochi installati</string>
     <string name="storage_item_shaders_detail">Vengono ricreate giocando. I primi minuti di ogni gioco tornano a scattare.</string>
+    <string name="storage_item_prefix_temp">File temporanei nei prefissi dei giochi</string>
+    <string name="storage_item_prefix_temp_detail">Cartelle temporanee di Windows e dump dei crash. Salvataggi e impostazioni restano.</string>
     <string name="storage_tag_safe">Sicuro</string>
     <string name="storage_tag_unused">Inutilizzato</string>
     <string name="storage_tag_stutter">Scatti</string>
