@@ -20,6 +20,7 @@ class SocNamesTest {
         assertEquals("Snapdragon 8 Gen 2 (QCS8550)", SocNames.label("QCS8550", ""))
         assertEquals("Snapdragon 8 Gen 3 family (SG8350P)", SocNames.label("SG8350P", "pineapple"))
         assertEquals("XYZ123", SocNames.label("XYZ123", ""))
+        assertEquals("Snapdragon 8s Gen 4 (SM8735P)", SocNames.label("SM8735P", "sun"))
     }
     @Test fun qtiPrefixIsNormalizedWithoutGuessingOtherModelVariants() {
         assertEquals("Snapdragon 8 Elite Extreme Gen 6", SocNames.name("SM8975", ""))

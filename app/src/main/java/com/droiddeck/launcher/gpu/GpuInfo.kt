@@ -154,12 +154,14 @@ data class GpuInfo(
             "kalama" to 740, "pineapple" to 750, "sun" to 830,
         )
 
+        private val SOC_MODELS = mapOf("SM8975" to 850, "SM8735" to 825, "SM8735P" to 825)
+
         internal fun platformModel(
             platform: String = systemProperty("ro.board.platform"),
             qtiSocName: String = systemProperty("ro.vendor.qti.soc_name"),
             socModel: String = SocNames.model(),
-        ): Int = if (SocNames.normalizedModel(socModel) == "SM8975" || SocNames.normalizedModel(qtiSocName) == "SM8975") 850
-            else PLATFORMS[platform.lowercase()] ?: PLATFORMS[qtiSocName.lowercase()] ?: 0
+        ): Int = SOC_MODELS[SocNames.normalizedModel(socModel)] ?: SOC_MODELS[SocNames.normalizedModel(qtiSocName)]
+            ?: PLATFORMS[platform.lowercase()] ?: PLATFORMS[qtiSocName.lowercase()] ?: 0
 
         fun systemProperty(name: String): String = try {
             Class.forName("android.os.SystemProperties").getMethod("get", String::class.java).invoke(null, name) as? String ?: ""
