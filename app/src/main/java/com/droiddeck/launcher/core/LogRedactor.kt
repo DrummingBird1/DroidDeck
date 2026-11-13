@@ -101,6 +101,9 @@ object LogRedactor {
     private val LONG_TOKEN = Regex("[A-Za-z0-9_\\-]{88,}")
     private val STEAMID64 = Regex("\\b(76561)(\\d{8})(\\d{4})\\b")
     private val STEAMID3 = Regex("\\[U:1:(\\d+)]")
+    private val STEAM_ACCOUNT_DIR = Regex("(?i)(?<![A-Za-z0-9_])((?:userdata|steam controller configs)[/\\\\]+)(\\d+)(?![0-9A-Za-z])")
+    private val COUNTRY = Regex("(?i)(?<![A-Za-z0-9_])(country(?:[_-]?code)?[\"']?\\s*[=:]\\s*[\"']?)([A-Za-z]{2})(?![A-Za-z0-9_])")
+    private val STORAGE_VOLUME = Regex("(?i)(/(?:storage|mnt/media_rw)/)([0-9a-f]{4}-[0-9a-f]{4}|[0-9a-f]{16})(?![0-9a-z_-])")
     private val EXTERNAL_ADDR = Regex("(?i)(external\\s+(?:ip\\s+)?address\\s*[:=]?\\s*|external\\s+ip\\s*[:=]?\\s*)([0-9A-Fa-f:.]{7,})")
     private val IPV4 = Regex("(?<![0-9.])(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})(?![0-9.])")
     private val IPV6 = Regex("(?<![0-9A-Za-z:])[0-9A-Fa-f]{0,4}(?::[0-9A-Fa-f]{0,4}){2,7}(?:%[A-Za-z0-9_.]+)?(?![0-9A-Za-z:])")
@@ -131,6 +134,12 @@ object LogRedactor {
     @Volatile
     private var accounts: List<Learned> = emptyList()
 
+    @Volatile
+    private var accountIds: List<Learned> = emptyList()
+
+    private const val STEAMID64_BASE = 76561197960265728L
+    private val STEAMID64_KEY = Regex("\"(76561\\d{12})\"")
+
     internal const val MAX_LEARN_INPUT_BYTES = 2 * 1024 * 1024
     private const val MAX_LEARNED_ACCOUNTS = 2048
     private const val MAX_LEARNED_ADDRESSES = 1024
@@ -156,6 +165,7 @@ object LogRedactor {
 
     fun learnAccounts(vararg loginUsers: java.io.File): Boolean {
         val names = LinkedHashSet<String>()
+        val ids = LinkedHashSet<String>()
         val kv = Regex("\"(AccountName|PersonaName)\"\\s+\"([^\"]*)\"")
         var unread = false
         for (file in loginUsers) {
@@ -174,12 +184,23 @@ object LogRedactor {
                 }
                 names += name
             }
+            for (match in STEAMID64_KEY.findAll(text)) {
+                val id = match.groupValues[1].toLong() - STEAMID64_BASE
+                if (id !in 1..0xFFFFFFFFL || id.toString().length <= 4) continue
+                if (ids.size >= MAX_LEARNED_ACCOUNTS) {
+                    unread = true
+                    break
+                }
+                ids += id.toString()
+            }
         }
         val learned = names.map { name ->
             val needs = name.lowercase().takeIf { name.all { it.code < 0x80 } }
             Learned(Regex("(?i)(?<![A-Za-z0-9_])" + Regex.escape(name) + "(?![A-Za-z0-9_])"), needs)
         }
+        val learnedIds = ids.map { id -> Learned(Regex("(?<![0-9A-Za-z])$id(?![0-9A-Za-z])"), id) }
         accounts = if (unread) (learned + accounts).distinctBy { it.regex.pattern }.take(MAX_LEARNED_ACCOUNTS) else learned
+        accountIds = if (unread) (learnedIds + accountIds).distinctBy { it.regex.pattern }.take(MAX_LEARNED_ACCOUNTS) else learnedIds
         return !unread
     }
 
@@ -278,7 +299,7 @@ object LogRedactor {
         true
     }
 
-    const val RULES_VERSION = 3
+    const val RULES_VERSION = 4
 
     private val LAN_IPV4 = Regex(
         "(?<![\\d.])(?:10\\.\\d{1,3}|192\\.168|172\\.(?:1[6-9]|2\\d|3[01])|169\\.254)\\.\\d{1,3}\\.\\d{1,3}(?!\\.?\\d)"
@@ -457,6 +478,8 @@ object LogRedactor {
 
     private fun isHex(c: Char) = c in '0'..'9' || c in 'a'..'f' || c in 'A'..'F'
 
+    private fun maskedId(id: String) = if (id.length > 4) "*".repeat(id.length - 4) + id.takeLast(4) else id
+
     fun redact(line: String): String {
         if (line.isEmpty()) return line
         if (line.length > MAX_LINE_LENGTH) return OVERSIZED_LINE
@@ -482,10 +505,13 @@ object LogRedactor {
             if (out.has("guard", "factor", "2fa")) out.set(replaceMatches(out.text, GUARD_CODE) { "${it.group(1)}<redacted:code>" })
             if (out.hasRun(32, ::isHex)) out.set(replaceMatches(out.text, WEBAPI_KEY, "<redacted:key>"))
             if ("76561" in out.text) out.set(replaceMatches(out.text, STEAMID64) { "${it.group(1)}********${it.group(3)}" })
-            if ("[U:1:" in out.text) out.set(replaceMatches(out.text, STEAMID3) { m ->
-                val id = m.group(1)
-                "[U:1:${if (id.length > 4) "*".repeat(id.length - 4) + id.takeLast(4) else id}]"
-            })
+            if ("[U:1:" in out.text) out.set(replaceMatches(out.text, STEAMID3) { m -> "[U:1:${maskedId(m.group(1))}]" })
+            for (r in accountIds) if (r.needs == null || out.has(r.needs)) out.set(replaceMatches(out.text, r.regex) { maskedId(it.group()) })
+            if (out.has("userdata", "controller configs")) {
+                out.set(replaceMatches(out.text, STEAM_ACCOUNT_DIR) { "${it.group(1)}${maskedId(it.group(2))}" })
+            }
+            if (out.has("country")) out.set(replaceMatches(out.text, COUNTRY) { "${it.group(1)}<redacted:country>" })
+            if (out.has("/storage/", "/media_rw/")) out.set(replaceMatches(out.text, STORAGE_VOLUME) { "${it.group(1)}<redacted:volume>" })
             if (out.has("external")) out.set(replaceMatches(out.text, EXTERNAL_ADDR) { "${it.group(1)}<redacted:ip>" })
             for (r in own) if (r.needs == null || out.has(r.needs)) out.set(replaceMatches(out.text, r.regex, "<redacted:ip>"))
             if (out.has("onloginstatechange")) out.set(replaceMatches(out.text, LOGIN_STATE) { "${it.group(1)}<redacted:account>" })

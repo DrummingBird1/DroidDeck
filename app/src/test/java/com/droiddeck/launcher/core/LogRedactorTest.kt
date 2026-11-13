@@ -163,6 +163,7 @@ class LogRedactorTest {
             "MAC:02:ab:cd:ef:12:34",
             "Serial number: 12345678901234567",
             "{\"ANDROID_ID\":\"0123456789abcdef\"}",
+            "Steam/userdata/52075506/config COUNTRY=DE /storage/A1B2-C3D4/Games",
         )
         for (line in lines) {
             val once = LogRedactor.redact(line)
@@ -379,6 +380,70 @@ class LogRedactorTest {
                 LogRedactor.redact("local=203.0.113.40 server=203.0.113.200"))
         } finally {
             LogRedactor.learnOwnAddresses(tmp.root.resolve("missing-network"))
+        }
+    }
+
+    @Test fun learnedSteamAccountIdIsMaskedWhereverItAppears() {
+        val users = tmp.newFile("ids-loginusers.vdf")
+        users.writeText(
+            "\"users\"\n{\n\t\"76561198012341234\"\n\t{\n\t\t\"AccountName\"\t\t\"idplayer\"\n\t}\n" +
+                "\t\"76561200060265728\"\n\t{\n\t\t\"AccountName\"\t\t\"newplayer\"\n\t}\n}\n"
+        )
+        try {
+            assertTrue(LogRedactor.learnAccounts(users))
+            val cases = mapOf(
+                "load /root/.local/share/Steam/steamapps/common/Steam Controller Configs/52075506/config/configset_controller_neptune.vdf" to
+                    "load /root/.local/share/Steam/steamapps/common/Steam Controller Configs/****5506/config/configset_controller_neptune.vdf",
+                "/root/.local/share/Steam/userdata/2100000000/config/localconfig.vdf" to
+                    "/root/.local/share/Steam/userdata/******0000/config/localconfig.vdf",
+                "Controller config for account 52075506 loaded" to "Controller config for account ****5506 loaded",
+                "U:1:52075506 steamid=52075506" to "U:1:****5506 steamid=****5506",
+                "user 76561198012341234 [U:1:52075506]" to "user 76561********1234 [U:1:****5506]",
+            )
+            for ((line, expected) in cases) {
+                assertEquals(expected, LogRedactor.redact(line))
+                assertEquals(expected, LogRedactor.redactForShare(line))
+                assertEquals(expected, LogRedactor.redact(expected))
+            }
+            for (line in listOf("frame 152075506 took 520755061 ns", "build 52075506a")) {
+                assertEquals(line, LogRedactor.redact(line))
+            }
+        } finally {
+            LogRedactor.learnAccounts()
+        }
+        assertEquals("account 52075506", LogRedactor.redact("account 52075506"))
+    }
+
+    @Test fun steamAccountDirectoriesAreMaskedWithoutLearning() {
+        LogRedactor.learnAccounts()
+        assertEquals("/root/.local/share/Steam/userdata/*****4321/730/remote",
+            LogRedactor.redact("/root/.local/share/Steam/userdata/987654321/730/remote"))
+        assertEquals("C:\\Program Files (x86)\\Steam\\userdata\\*****4321\\7\\remote",
+            LogRedactor.redact("C:\\Program Files (x86)\\Steam\\userdata\\987654321\\7\\remote"))
+        assertEquals("Steam Controller Configs/*****4321/config",
+            LogRedactor.redact("Steam Controller Configs/987654321/config"))
+        for (line in listOf("/data/user/0/com.droiddeck.launcher/files", "userdata/config/987654321", "myuserdata/987654321/x")) {
+            assertEquals(line, LogRedactor.redact(line))
+        }
+    }
+
+    @Test fun countryCodeIsRedacted() {
+        assertEquals("SteamUI: LANGUAGE=english COUNTRY=<redacted:country> REALM=1",
+            LogRedactor.redactForShare("SteamUI: LANGUAGE=english COUNTRY=DE REALM=1"))
+        assertEquals("{\"country_code\":\"<redacted:country>\"}", LogRedactor.redact("{\"country_code\":\"US\"}"))
+        assertEquals("country: <redacted:country>", LogRedactor.redact("country: fr"))
+        for (line in listOf("countries=12", "country selector shown", "COUNTRYCODE_FALLBACK=1", "ipcountry=US")) {
+            assertEquals(line, LogRedactor.redact(line))
+        }
+    }
+
+    @Test fun storageVolumeIdsAreRedacted() {
+        assertEquals("Game storage: automatic (/storage/<redacted:volume>/Android/data/com.droiddeck.launcher/files/steam)",
+            LogRedactor.redactForShare("Game storage: automatic (/storage/A1B2-C3D4/Android/data/com.droiddeck.launcher/files/steam)"))
+        assertEquals("bind /mnt/media_rw/<redacted:volume>/Games", LogRedactor.redact("bind /mnt/media_rw/9c33-1a2b/Games"))
+        assertEquals("/storage/<redacted:volume>", LogRedactor.redact("/storage/1A2B3C4D5E6F7A8B"))
+        for (line in listOf("/storage/emulated/0/Games", "/storage/self/primary", "/storage/A1B2-C3D4-E5/x", "/data/A1B2-C3D4")) {
+            assertEquals(line, LogRedactor.redact(line))
         }
     }
 
