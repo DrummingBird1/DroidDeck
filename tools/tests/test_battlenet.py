@@ -1010,14 +1010,26 @@ class LaunchTest(Harness):
             self.assertTrue(BNET["follow"]("/pfx", poll=0, grace=15, ask=lambda: asks.append(1)))
         self.assertEqual(len(asks), 2)
 
-    def test_battle_net_is_asked_at_most_three_times(self):
+    def test_battle_net_still_getting_ready_is_asked_until_it_starts_the_game(self):
         up = self.clients()
-        self.states = [up] * 6 + [[], []]
+        game = (40, self.GAME + ["-uid", "wowf"])
+        self.states = [up] * 6 + [up + [game], [game], [], []]
         asks = []
-        times = iter([0, 20, 40, 60, 80, 100, 101, 130])
+        times = iter([0, 16, 32, 48, 64, 180, 181, 182, 183, 200])
         with mock.patch.object(BNET["time"], "monotonic", lambda: next(times)):
+            self.assertTrue(BNET["follow"]("/pfx", poll=0, grace=15, ask=lambda: asks.append(1)))
+        self.assertEqual(len(asks), 5)
+
+    def test_battle_net_is_no_longer_asked_after_the_deadline(self):
+        up = self.clients()
+        self.states = [up] * 17 + [[], []]
+        asks, said = [], []
+        times = iter(list(range(0, 340, 20)) + [341, 360])
+        with mock.patch.object(BNET["time"], "monotonic", lambda: next(times)), \
+                mock.patch.dict(BNET, {"say": said.append}):
             self.assertFalse(BNET["follow"]("/pfx", poll=0, grace=15, ask=lambda: asks.append(1)))
-        self.assertEqual(len(asks), 2)
+        self.assertEqual(len(asks), 14)
+        self.assertEqual(sum("no longer asking" in line for line in said), 1)
 
     def test_the_wallpaper_is_droiddecks_logo_on_its_dark_gradient(self):
         bmp = BNET["wallpaper_bmp"](192, 108)
