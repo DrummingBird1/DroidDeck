@@ -4,6 +4,7 @@ import com.droiddeck.launcher.stores.CatalogItem
 import com.droiddeck.launcher.stores.Store
 import com.droiddeck.launcher.stores.StoreGameSidecar
 import com.droiddeck.launcher.stores.StoreLaunch
+import com.droiddeck.launcher.stores.WebCookies
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -206,6 +207,16 @@ class EaTest {
         assertEquals("QUOX", EaAuth.redirectValue("qrc:///html/login_successful.html?code=QUOX&state=1", "code"))
         assertEquals("tok", EaAuth.redirectValue("qrc:/html/login_successful.html#access_token=tok&token_type=Bearer", "access_token"))
         assertNull(EaAuth.redirectValue("https://signin.ea.com/p/x", "code"))
+    }
+
+    @Test fun signOutReachesTheSignInCookiesScopedToTheAuthPath() {
+        val auth = EaLogin.SIGN_IN_URLS.map(android.net.Uri::parse).single { it.host == "accounts.ea.com" }
+        assertTrue(EaLogin.COOKIE_PATHS.all { auth.path.orEmpty().startsWith(it) })
+        val lines = WebCookies.expired("sid=a; remid=b", EaLogin.COOKIE_DOMAIN, EaLogin.COOKIE_PATHS, auth.host)
+        assertEquals(12, lines.size)
+        assertTrue(lines.contains("remid=; Max-Age=0; Path=/connect; Secure"))
+        assertTrue(lines.contains("sid=; Max-Age=0; Path=/connect; Secure; Domain=accounts.ea.com"))
+        assertTrue(lines.contains("sid=; Max-Age=0; Path=/; Secure; Domain=.ea.com"))
     }
 
     @Test fun pcSignIsSigned() {

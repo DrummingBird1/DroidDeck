@@ -44,7 +44,7 @@ object EaBackend : StoreBackend {
         signOuts.incrementAndGet()
         StoresState.post { StoresState.shelves.remove(store) }
         EaUpdates.available.clear()
-        runCatching { WebCookies.expire(EaLogin.SIGN_IN_URLS, ".ea.com", listOf("/")) {} }
+        runCatching { WebCookies.expire(EaLogin.SIGN_IN_URLS, EaLogin.COOKIE_DOMAIN, EaLogin.COOKIE_PATHS) {} }
     }
 
     override fun syncLibrary(context: Context, force: Boolean) {
@@ -101,7 +101,7 @@ internal class EaLogin(private val pending: EaAuth.Pending, override val userAge
     override fun isRedirect(url: String): Boolean = url.startsWith("qrc:", ignoreCase = true)
 
     override fun forgetSignIn(done: () -> Unit) {
-        runCatching { WebCookies.expire(SIGN_IN_URLS, ".ea.com", listOf("/")) { done() } }.onFailure { done() }
+        runCatching { WebCookies.expire(SIGN_IN_URLS, COOKIE_DOMAIN, COOKIE_PATHS) { done() } }.onFailure { done() }
     }
 
     override fun finish(activity: StoreLoginActivity, view: WebView, url: String): String? {
@@ -116,7 +116,9 @@ internal class EaLogin(private val pending: EaAuth.Pending, override val userAge
     }
 
     companion object {
-        val SIGN_IN_URLS = listOf("https://accounts.ea.com", "https://signin.ea.com", "https://www.ea.com")
+        const val COOKIE_DOMAIN = ".ea.com"
+        val COOKIE_PATHS = listOf("/", "/connect")
+        val SIGN_IN_URLS = listOf(EaAuth.AUTH_URL, "https://signin.ea.com", "https://www.ea.com")
     }
 }
 
