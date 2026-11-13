@@ -13,16 +13,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-static inline bool droiddeck_proot_read_fdinfo(int fd, uint64_t *mnt_id, uint64_t *ino) {
-  if (fd < 0 || !mnt_id || !ino) return false;
-
-  char fdinfo_path[64];
-  int n = snprintf(fdinfo_path, sizeof fdinfo_path, "/proc/self/fdinfo/%d", fd);
-  if (n < 0 || (size_t)n >= sizeof fdinfo_path) return false;
-
-  FILE *fdinfo = fopen(fdinfo_path, "r");
-  if (!fdinfo) return false;
-
+/* Kernels before 5.14 print no ino: line; *ino is then 0. */
+static inline bool droiddeck_proot_parse_fdinfo(FILE *fdinfo, uint64_t *mnt_id, uint64_t *ino) {
   bool have_mnt_id = false, have_ino = false;
   uint64_t parsed_mnt_id = 0, parsed_ino = 0;
   char line[256];
@@ -50,13 +42,24 @@ static inline bool droiddeck_proot_read_fdinfo(int fd, uint64_t *mnt_id, uint64_
     }
     *field = (uint64_t)parsed;
   }
-  bool read_error = ferror(fdinfo);
-  fclose(fdinfo);
-
-  if (read_error || !have_mnt_id || !have_ino || parsed_mnt_id == 0) return false;
+  if (ferror(fdinfo) || !have_mnt_id || parsed_mnt_id == 0) return false;
   *mnt_id = parsed_mnt_id;
-  *ino = parsed_ino;
+  *ino = have_ino ? parsed_ino : 0;
   return true;
+}
+
+static inline bool droiddeck_proot_read_fdinfo(int fd, uint64_t *mnt_id, uint64_t *ino) {
+  if (fd < 0 || !mnt_id || !ino) return false;
+
+  char fdinfo_path[64];
+  int n = snprintf(fdinfo_path, sizeof fdinfo_path, "/proc/self/fdinfo/%d", fd);
+  if (n < 0 || (size_t)n >= sizeof fdinfo_path) return false;
+
+  FILE *fdinfo = fopen(fdinfo_path, "r");
+  if (!fdinfo) return false;
+  bool parsed = droiddeck_proot_parse_fdinfo(fdinfo, mnt_id, ino);
+  fclose(fdinfo);
+  return parsed;
 }
 
 static inline bool droiddeck_proot_statx_fill_mnt_id(pid_t pid, int fd,
@@ -80,7 +83,7 @@ static inline bool droiddeck_proot_statx_fill_mnt_id(pid_t pid, int fd,
   uint64_t mnt_id = 0, ino = 0;
   bool have_fdinfo = same && droiddeck_proot_read_fdinfo(pinned, &mnt_id, &ino);
   close(pinned);
-  if (!have_fdinfo || ino != st.st_ino) return false;
+  if (!have_fdinfo || (ino != 0 && ino != st.st_ino)) return false;
 
   buf->stx_mnt_id = mnt_id;
   buf->stx_mask |= STATX_MNT_ID;

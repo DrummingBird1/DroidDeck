@@ -117,16 +117,48 @@ int main(void) {
 }
 """
 
+PARSER = r"""
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <string.h>
+#include "statx_mnt_id.h"
+
+static int parse(const char *text, uint64_t *mnt_id, uint64_t *ino) {
+  FILE *f = fmemopen((void *)text, strlen(text), "r");
+  if (!f) return -1;
+  int parsed = droiddeck_proot_parse_fdinfo(f, mnt_id, ino);
+  fclose(f);
+  return parsed;
+}
+
+int main(void) {
+  uint64_t mnt_id = 1, ino = 1;
+  /* fdinfo as Linux 4.19 prints it: no ino: line. */
+  if (parse("pos:\t0\nflags:\t02100000\nmnt_id:\t27\n", &mnt_id, &ino) != 1 || mnt_id != 27 || ino != 0) return 1;
+  if (parse("pos:\t0\nflags:\t02100000\nmnt_id:\t27\nino:\t1234\n", &mnt_id, &ino) != 1 || mnt_id != 27 || ino != 1234) return 2;
+  if (parse("pos:\t0\nflags:\t02100000\nino:\t1234\n", &mnt_id, &ino) != 0) return 3;
+  if (parse("mnt_id:\t0\n", &mnt_id, &ino) != 0) return 4;
+  if (parse("mnt_id:\tx\n", &mnt_id, &ino) != 0) return 5;
+  return 0;
+}
+"""
+
 
 @unittest.skipUnless(shutil.which("cc") and sys.platform.startswith("linux"), "requires Linux and a C compiler")
 class ProotStatxMountIdTest(unittest.TestCase):
-    def test_missing_mount_id_is_recovered_only_for_the_same_open_inode(self):
+    def run_program(self, text):
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "test.c"
             program = Path(tmp) / "test"
-            source.write_text(PROGRAM)
+            source.write_text(text)
             subprocess.run(["cc", "-O2", "-Wall", "-Werror", "-I", str(PROOT), "-o", str(program), str(source)], check=True)
             subprocess.run([str(program)], check=True)
+
+    def test_missing_mount_id_is_recovered_only_for_the_same_open_inode(self):
+        self.run_program(PROGRAM)
+
+    def test_fdinfo_without_an_ino_line_still_gives_the_mount_id(self):
+        self.run_program(PARSER)
 
 
 if __name__ == "__main__":
