@@ -1,5 +1,6 @@
 package com.droiddeck.launcher.frontend
 
+import com.droiddeck.launcher.assumeFilePermissionsEnforced
 import android.os.Environment
 import com.droiddeck.launcher.session.SessionPrefs
 import java.io.File
@@ -135,6 +136,19 @@ class AddedExesTest {
         val vns = File(storage, "VNs")
         assertEquals(listOf("Albatross", "Angel Beats", "Rance 01", "Sayonara").map { File(vns, it).path },
             AddedGames.scan(app).map { it.folder.path })
+        SessionPrefs.setGameStorage(app, SessionPrefs.GAME_STORAGE_OFF, "")
+    }
+
+    @Test fun aGroupFolderWithFoldersHoldingNoGameStillListsEachGame() {
+        val storage = visualNovels()
+        val vns = File(storage, "VNs")
+        File(vns, "steamapps/common").mkdirs()
+        File(vns, "Notes/readme.txt").apply { parentFile!!.mkdirs(); writeText("x") }
+        assertEquals(listOf("Albatross", "Angel Beats", "Rance 01", "Sayonara").map { File(vns, it).path },
+            AddedGames.scan(app).map { it.folder.path })
+        val pick = File(vns, "Rance 01/Rance01.exe")
+        assertEquals(pick.parentFile!!.path, result(AddedGames.addExe(app, pick)).folder.path)
+        assertEquals(4, AddedGames.scan(app).size)
         SessionPrefs.setGameStorage(app, SessionPrefs.GAME_STORAGE_OFF, "")
     }
 
@@ -295,6 +309,7 @@ class AddedExesTest {
     }
 
     @Test fun anExeInAFolderTheAppCannotReadIsNotAdded() {
+        assumeFilePermissionsEnforced()
         noGamesFolders()
         val outside = exe(File(tmp.newFolder("elsewhere"), "Game/Game.exe"))
         outside.parentFile!!.setReadable(false)
