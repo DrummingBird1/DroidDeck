@@ -270,8 +270,12 @@ private fun Content(
         DesktopPage(s, a, modifier, onSelect)
         return
     }
+    if (selected == "agent") {
+        AgentPage(modifier.padding(horizontal = padH).padding(top = padV))
+        return
+    }
     if (selected == "android-apps" && s.isHomeApp) {
-        AndroidAppsPage(s, modifier, onAndroidAppClick)
+        AndroidAppsPage(s, a, modifier, onAndroidAppClick)
         return
     }
     Column(modifier = modifier.verticalScroll(rememberScrollState()).padding(horizontal = padH, vertical = padV)) {
@@ -465,7 +469,8 @@ private fun UserAppPage(app: UserApps.App, s: FrontEndState, a: FrontEndActions,
     val ctx = LocalContext.current
     val narrow = LocalNarrowPane.current
     var editing by rememberSaveable(app.key) { mutableStateOf(false) }
-    val x86 = (app.arch == "x86_64" || app.arch == "i386") && app.fex != com.droiddeck.launcher.runtime.LinuxFex.OFF
+    val x86 = (app.arch == "x86_64" || app.arch == "i386") && app.fex != com.droiddeck.launcher.runtime.LinuxFex.OFF &&
+        app.kind != UserApps.Kind.FLATPAK
     val fexReady by produceState<Boolean?>(null, app.key, x86, s.sessionRunning) {
         value = if (x86) kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { com.droiddeck.launcher.runtime.LinuxFex.ready(ctx) } else true
     }
