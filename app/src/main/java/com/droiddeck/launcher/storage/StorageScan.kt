@@ -26,7 +26,7 @@ class GameUsage(
 }
 
 enum class ToolState { IN_USE, REQUIRED, UNUSED }
-enum class ToolReason { DEFAULT_PROTON, PROTON, FEX_RUNTIME, ARM_RUNTIME, REDISTRIBUTABLES, FEX, STEAM_TOOL, OLD_RUNTIME, X86_PROTON, CUSTOM, CUSTOM_UNKNOWN, X64_CLIENT }
+enum class ToolReason { DEFAULT_PROTON, PROTON, FEX_RUNTIME, ARM_RUNTIME, REDISTRIBUTABLES, FEX, ANTICHEAT_RUNTIME, STEAM_TOOL, OLD_RUNTIME, X86_PROTON, CUSTOM, CUSTOM_UNKNOWN, X64_CLIENT }
 
 class ToolUsage(
     val key: String, val name: String, val bytes: Long, val state: ToolState, val reason: ToolReason,
@@ -89,7 +89,6 @@ object StorageScan {
         fun measure(file: File): Long = size(file).also { known[file.path] = it }
     }
 
-    // Proton tools' files live only in the arm64 client's root; the x86-64 client has wrappers of them.
     fun steamRoot(context: Context) = SessionPrefs.steamRoot(context, "arm64")
 
     fun scan(context: Context): StorageReport {
@@ -113,7 +112,6 @@ object StorageScan {
             Library.steamLibraries(context, arch).map { (root, label) ->
                 val internal = canonical(root) == primary
                 val data = if (internal) root else SecondaryLibrary.privateRoot(files, root)
-                // The x86-64 card folder and its steamapps appear only with that client's first session and library write.
                 val listing = SteamStorage.manifests(root)
                     ?: SteamStorage.Listing(emptyList(), emptySet(), true).takeIf {
                         x64 && (if (internal) !File(root, "steamapps").exists() else !root.exists() && root.parentFile?.isDirectory == true)
@@ -127,7 +125,6 @@ object StorageScan {
             .filter { !SteamStorage.isTool(it) && it.installed }.map { it.appId.toString() }.toSet()
         val armUse = runCatching { SteamStorage.compatMappings(File(steamRoot, "config/config.vdf").readText()) }.getOrNull()
             ?.let { SteamStorage.ToolUse(it, installedGames(false)) }
-        // An x86-64 client without a config.vdf has never mapped a game to anything.
         val x64Vdf = x64Root?.let { File(it, "config/config.vdf") }
         val x64Use = if (x64Vdf == null || !x64Vdf.exists()) SteamStorage.ToolUse(emptyMap(), emptySet(), x64 = true)
             else runCatching { SteamStorage.ToolUse(SteamStorage.compatMappings(x64Vdf.readText()), installedGames(true), x64 = true) }.getOrNull()
@@ -156,6 +153,7 @@ object StorageScan {
                             SteamStorage.ARM_RUNTIME -> ToolReason.ARM_RUNTIME
                             SteamStorage.REDISTRIBUTABLES -> ToolReason.REDISTRIBUTABLES
                             SteamStorage.FEX -> ToolReason.FEX
+                            SteamStorage.EAC_RUNTIME, SteamStorage.BATTLEYE_RUNTIME -> ToolReason.ANTICHEAT_RUNTIME
                             else -> ToolReason.STEAM_TOOL
                         }
                     }

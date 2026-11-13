@@ -621,7 +621,6 @@ private fun GamesView(report: StorageReport, sessionRunning: Boolean, a: FrontEn
     Spacer(Modifier.height(8.dp))
     Note(stringResource(R.string.storage_games_note))
     confirm?.let { g ->
-        // steam://uninstall reaches only the session's client, the selected one.
         val otherClient = g.x64 != (SessionPrefs.steamClientArch(LocalContext.current) == "x86_64")
         if (otherClient) AlertDialog(
             onDismissRequest = { confirm = null },
@@ -715,6 +714,7 @@ private fun toolDetail(t: ToolUsage): String = when (t.reason) {
     ToolReason.ARM_RUNTIME -> stringResource(R.string.storage_tool_arm_runtime)
     ToolReason.REDISTRIBUTABLES -> stringResource(R.string.storage_tool_redist)
     ToolReason.FEX -> stringResource(R.string.storage_tool_fex)
+    ToolReason.ANTICHEAT_RUNTIME -> stringResource(R.string.storage_tool_anticheat)
     ToolReason.STEAM_TOOL -> stringResource(R.string.storage_tool_steam)
     ToolReason.OLD_RUNTIME -> stringResource(R.string.storage_tool_old_runtime)
     ToolReason.X86_PROTON -> stringResource(R.string.storage_tool_x86_proton)
@@ -756,7 +756,7 @@ private fun ToolList(tools: List<ToolUsage>, sessionRunning: Boolean, onRemove: 
 }
 
 @Composable
-internal fun LowSpaceDialog(free: Long, onFreeUp: () -> Unit, onPlay: () -> Unit, onDismiss: () -> Unit) {
+internal fun LowSpaceDialog(free: Long, warn: Boolean, onWarnChange: (Boolean) -> Unit, onFreeUp: () -> Unit, onPlay: () -> Unit, onDismiss: () -> Unit) {
     val colors = MaterialTheme.colorScheme
     val pal = LocalPalette.current
     val report = StorageState.report
@@ -771,6 +771,7 @@ internal fun LowSpaceDialog(free: Long, onFreeUp: () -> Unit, onPlay: () -> Unit
                 if (report != null && StorageState.safeBytes(report) > 0) Text(
                     stringResource(R.string.storage_low_safe, gb(StorageState.safeBytes(report))), fontSize = 13.sp, color = pal.good,
                 )
+                DialogToggleRow(stringResource(R.string.storage_low_never), !warn) { onWarnChange(!it) }
             }
         },
         confirmButton = { FocusText(stringResource(R.string.storage_free_up), pal.signal, modifier = Modifier.focusRequester(focus), onClick = onFreeUp) },
