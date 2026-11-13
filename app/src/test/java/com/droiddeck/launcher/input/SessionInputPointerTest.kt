@@ -1,7 +1,10 @@
 package com.droiddeck.launcher.input
 
 import android.os.Looper
+import android.view.InputDevice
+import android.view.MotionEvent
 import android.view.SurfaceView
+import android.view.ViewConfiguration
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.geometry.Offset
@@ -219,6 +222,26 @@ class SessionInputPointerTest {
         assertEquals(29 to 0, CompositorShadow.keys.last())
     }
 
+    @Config(sdk = [34])
+    @Test fun touchpadTwoFingerSwipeScrollsTheWheelWithoutMovingThePointer() {
+        val config = ViewConfiguration.get(activity)
+        val v = config.scaledVerticalScrollFactor
+        val h = config.scaledHorizontalScrollFactor
+        assertTrue(mouse(swipe(MotionEvent.ACTION_DOWN)))
+        val move = swipe(MotionEvent.ACTION_MOVE, y = 300f - 0.75f * v, dy = 0.75f * v)
+        move.addBatch(move.eventTime + 8, arrayOf(coords(500f, 300f - 2.25f * v, dy = 1.5f * v)), 0)
+        assertTrue(mouse(move))
+        assertTrue(mouse(swipe(MotionEvent.ACTION_MOVE, dx = 1.25f * h, dy = -1.5f * v)))
+        assertTrue(mouse(swipe(MotionEvent.ACTION_MOVE, dy = 0.5f * v)))
+        assertTrue(mouse(swipe(MotionEvent.ACTION_UP)))
+        assertTrue(mouse(swipe(MotionEvent.ACTION_DOWN)))
+        assertTrue(mouse(swipe(MotionEvent.ACTION_MOVE, dy = 0.8f * v)))
+        assertEquals(listOf(Triple(4, 2, 0), Triple(4, -1, 0), Triple(11, 0, 120)), CompositorShadow.events)
+        assertTrue(CompositorShadow.pointers.isEmpty())
+        assertTrue(mouse(MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_MOVE, 520f, 310f, 0).apply { source = InputDevice.SOURCE_MOUSE }))
+        assertEquals(1, CompositorShadow.pointers.size)
+    }
+
     @Test fun horizontalWheelFinishesBeforeRawMouseDestruction() {
         checkWheelTransition(horizontal = true, transition = "releaseEvdevMouse", marker = "destroy")
     }
@@ -264,6 +287,25 @@ class SessionInputPointerTest {
             WriterShadow.beforeWheel = null
         }
     }
+
+    private fun coords(x: Float, y: Float, dx: Float = 0f, dy: Float = 0f) = MotionEvent.PointerCoords().apply {
+        this.x = x
+        this.y = y
+        setAxisValue(MotionEvent.AXIS_GESTURE_SCROLL_X_DISTANCE, dx)
+        setAxisValue(MotionEvent.AXIS_GESTURE_SCROLL_Y_DISTANCE, dy)
+    }
+
+    private fun swipe(action: Int, x: Float = 500f, y: Float = 300f, dx: Float = 0f, dy: Float = 0f): MotionEvent {
+        val finger = MotionEvent.PointerProperties().apply { id = 0; toolType = MotionEvent.TOOL_TYPE_FINGER }
+        val obtain = MotionEvent::class.java.getMethod("obtain", Long::class.java, Long::class.java, Int::class.java, Int::class.java,
+            Array<MotionEvent.PointerProperties>::class.java, Array<MotionEvent.PointerCoords>::class.java, Int::class.java, Int::class.java,
+            Float::class.java, Float::class.java, Int::class.java, Int::class.java, Int::class.java, Int::class.java, Int::class.java, Int::class.java)
+        return obtain.invoke(null, 0L, 0L, action, 1, arrayOf(finger), arrayOf(coords(x, y, dx, dy)), 0, 0, 1f, 1f, 1, 0,
+            InputDevice.SOURCE_MOUSE, 0, 0, MotionEvent.CLASSIFICATION_TWO_FINGER_SWIPE) as MotionEvent
+    }
+
+    private fun mouse(event: MotionEvent): Boolean = ReflectionHelpers.callInstanceMethod(activity, "onMouse",
+        ReflectionHelpers.ClassParameter.from(MotionEvent::class.java, event))
 
     private fun refresh() = invoke("refreshInputProfile")
     private fun invoke(name: String) = ReflectionHelpers.callInstanceMethod<Unit>(activity, name)

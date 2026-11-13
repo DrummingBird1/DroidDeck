@@ -4410,7 +4410,41 @@ class SessionActivity : ComponentActivity(), SurfaceHolder.Callback, com.droidde
         return true
     }
 
+    private var touchpadScrollRestX = 0f
+    private var touchpadScrollRestY = 0f
+
+    // Android 14+ sends a touchpad scroll as a drag whose x/y follow the fingers, not the cursor.
+    private fun touchpadScroll(event: MotionEvent): Boolean {
+        if (Build.VERSION.SDK_INT < 34 || event.classification != MotionEvent.CLASSIFICATION_TWO_FINGER_SWIPE) return false
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                touchpadScrollRestX = 0f
+                touchpadScrollRestY = 0f
+            }
+            MotionEvent.ACTION_MOVE -> {
+                var dx = event.getAxisValue(MotionEvent.AXIS_GESTURE_SCROLL_X_DISTANCE)
+                var dy = event.getAxisValue(MotionEvent.AXIS_GESTURE_SCROLL_Y_DISTANCE)
+                for (i in 0 until event.historySize) {
+                    dx += event.getHistoricalAxisValue(MotionEvent.AXIS_GESTURE_SCROLL_X_DISTANCE, i)
+                    dy += event.getHistoricalAxisValue(MotionEvent.AXIS_GESTURE_SCROLL_Y_DISTANCE, i)
+                }
+                val config = ViewConfiguration.get(this)
+                touchpadScrollRestX += dx / config.scaledHorizontalScrollFactor
+                touchpadScrollRestY += dy / config.scaledVerticalScrollFactor
+                val h = touchpadScrollRestX.toInt()
+                val v = touchpadScrollRestY.toInt()
+                touchpadScrollRestX -= h
+                touchpadScrollRestY -= v
+                if (v != 0) sendSceneWheel(v)
+                if (h != 0) sendSceneWheel(h, horizontal = true)
+            }
+            else -> return false
+        }
+        return true
+    }
+
     private fun onMouse(event: MotionEvent): Boolean {
+        if (touchpadScroll(event)) return true
         when (event.actionMasked) {
             MotionEvent.ACTION_HOVER_MOVE, MotionEvent.ACTION_MOVE, MotionEvent.ACTION_HOVER_ENTER ->
                 if (evdevMouseActive) sendMouseDelta(event.x, event.y) else movePointer(event.x, event.y, fromMouse = true)
