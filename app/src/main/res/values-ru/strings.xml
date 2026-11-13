@@ -2139,6 +2139,7 @@
     <string name="pextra_busy">Инструмент совместимости уже устанавливается</string>
     <string name="pextra_stop_session">Остановите текущую сессию перед установкой инструментов совместимости</string>
     <string name="pextra_no_release">Не найден выпуск %1$s для ARM64</string>
+    <string name="pextra_no_release_list">Не удалось прочитать список выпусков %1$s с GitHub; проверьте подключение или повторите попытку позже</string>
     <string name="pextra_no_space">Для установки %1$s нужно не менее 4 ГБ свободного места плюс размер загрузки</string>
     <string name="pextra_downloading">Загрузка %1$s %2$s</string>
     <string name="pextra_retrying">Повторная загрузка · попытка %1$d из %2$d</string>

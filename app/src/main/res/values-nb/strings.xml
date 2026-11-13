@@ -2008,6 +2008,7 @@
     <string name="pextra_busy">En installasjon av et kompatibilitetsverktøy kjører allerede</string>
     <string name="pextra_stop_session">Avslutt den aktive sesjonen før du installerer kompatibilitetsverktøy</string>
     <string name="pextra_no_release">Fant ingen ARM64-utgivelse for %1$s</string>
+    <string name="pextra_no_release_list">Kunne ikke lese utgivelseslisten for %1$s fra GitHub; sjekk tilkoblingen eller prøv igjen senere</string>
     <string name="pextra_no_space">Minst 4 GB ledig pluss nedlastingens størrelse er nødvendig for å installere %1$s</string>
     <string name="pextra_downloading">Laster ned %1$s %2$s</string>
     <string name="pextra_retrying">Prøver nedlastingen igjen · forsøk %1$d av %2$d</string>

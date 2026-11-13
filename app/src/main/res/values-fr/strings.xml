@@ -2033,6 +2033,7 @@
     <string name="pextra_busy">Une installation d\'outil de compatibilité est déjà en cours</string>
     <string name="pextra_stop_session">Arrêtez la session en cours avant d\'installer des outils de compatibilité</string>
     <string name="pextra_no_release">Aucune version ARM64 trouvée pour %1$s</string>
+    <string name="pextra_no_release_list">Impossible de lire la liste des versions de %1$s sur GitHub ; vérifiez la connexion ou réessayez plus tard</string>
     <string name="pextra_no_space">Au moins 4 Go libres, plus la taille du téléchargement, sont nécessaires pour installer %1$s</string>
     <string name="pextra_downloading">Téléchargement de %1$s %2$s</string>
     <string name="pextra_retrying">Nouvelle tentative de téléchargement · essai %1$d sur %2$d</string>

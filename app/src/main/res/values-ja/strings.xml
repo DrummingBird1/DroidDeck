@@ -1983,6 +1983,7 @@
     <string name="pextra_busy">互換性ツールのインストールはすでに実行中です</string>
     <string name="pextra_stop_session">互換性ツールをインストールする前に、実行中のセッションを停止してください</string>
     <string name="pextra_no_release">%1$sのARM64リリースが見つかりませんでした</string>
+    <string name="pextra_no_release_list">GitHubから%1$sのリリース一覧を読み取れませんでした。接続を確認するか、しばらくしてからもう一度お試しください</string>
     <string name="pextra_no_space">%1$sのインストールには、ダウンロードサイズに加えて4GB以上の空き容量が必要です</string>
     <string name="pextra_downloading">%1$s %2$sをダウンロード中</string>
     <string name="pextra_retrying">ダウンロードを再試行中 · %1$d / %2$d回目</string>

@@ -1983,6 +1983,7 @@
     <string name="pextra_busy">Pemasangan alat keserasian sudah berjalan</string>
     <string name="pextra_stop_session">Hentikan sesi aktif sebelum memasang alat keserasian</string>
     <string name="pextra_no_release">Tidak dapat mencari keluaran ARM64 untuk %1$s</string>
+    <string name="pextra_no_release_list">Tidak dapat membaca senarai keluaran %1$s daripada GitHub; semak sambungan atau cuba lagi kemudian</string>
     <string name="pextra_no_space">Sekurang-kurangnya 4 GB bebas tambah saiz muat turun diperlukan untuk memasang %1$s</string>
     <string name="pextra_downloading">Memuat turun %1$s %2$s</string>
     <string name="pextra_retrying">Mencuba semula muat turun · percubaan %1$d daripada %2$d</string>

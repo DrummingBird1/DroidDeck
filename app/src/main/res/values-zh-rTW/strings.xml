@@ -1983,6 +1983,7 @@
     <string name="pextra_busy">已有相容性工具正在安裝</string>
     <string name="pextra_stop_session">安裝相容性工具前，請先停止執行中的工作階段</string>
     <string name="pextra_no_release">找不到 %1$s 的 ARM64 發行版本</string>
+    <string name="pextra_no_release_list">無法從 GitHub 讀取 %1$s 的發行版本清單；請檢查網路連線或稍後再試</string>
     <string name="pextra_no_space">安裝 %1$s 需要至少 4 GB 可用空間，再加上下載大小</string>
     <string name="pextra_downloading">正在下載 %1$s %2$s</string>
     <string name="pextra_retrying">正在重試下載 · 第 %1$d 次，共 %2$d 次</string>

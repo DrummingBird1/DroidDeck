@@ -1983,6 +1983,7 @@
     <string name="pextra_busy">มีการติดตั้งเครื่องมือความเข้ากันได้อื่นกำลังทำงานอยู่แล้ว</string>
     <string name="pextra_stop_session">หยุดเซสชันที่กำลังทำงานก่อนติดตั้งเครื่องมือความเข้ากันได้</string>
     <string name="pextra_no_release">ไม่พบรุ่นที่เผยแพร่แบบ ARM64 สำหรับ %1$s</string>
+    <string name="pextra_no_release_list">ไม่สามารถอ่านรายการรุ่นที่เผยแพร่ของ %1$s จาก GitHub ได้ ตรวจสอบการเชื่อมต่อหรือลองใหม่ภายหลัง</string>
     <string name="pextra_no_space">ต้องมีพื้นที่ว่างอย่างน้อย 4 GB รวมกับขนาดดาวน์โหลดเพื่อติดตั้ง %1$s</string>
     <string name="pextra_downloading">กำลังดาวน์โหลด %1$s %2$s</string>
     <string name="pextra_retrying">กำลังลองดาวน์โหลดใหม่ · ครั้งที่ %1$d จาก %2$d</string>

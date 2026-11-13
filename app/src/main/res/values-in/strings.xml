@@ -1983,6 +1983,7 @@
     <string name="pextra_busy">Instalasi alat kompatibilitas sedang berjalan</string>
     <string name="pextra_stop_session">Hentikan sesi aktif sebelum menginstal alat kompatibilitas</string>
     <string name="pextra_no_release">Tidak dapat menemukan rilis ARM64 untuk %1$s</string>
+    <string name="pextra_no_release_list">Tidak dapat membaca daftar rilis %1$s dari GitHub; periksa koneksi atau coba lagi nanti</string>
     <string name="pextra_no_space">Setidaknya 4 GB ruang kosong ditambah ukuran unduhan diperlukan untuk menginstal %1$s</string>
     <string name="pextra_downloading">Mengunduh %1$s %2$s</string>
     <string name="pextra_retrying">Mencoba lagi unduhan · percobaan %1$d dari %2$d</string>

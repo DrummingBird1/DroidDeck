@@ -2108,6 +2108,7 @@
     <string name="pextra_busy">يوجد تثبيت لأداة توافق قيد التنفيذ بالفعل</string>
     <string name="pextra_stop_session">أوقِف الجلسة النشطة قبل تثبيت أدوات التوافق</string>
     <string name="pextra_no_release">تعذّر العثور على إصدار ARM64 لـ %1$s</string>
+    <string name="pextra_no_release_list">تعذّرت قراءة قائمة إصدارات %1$s من GitHub؛ تحقّق من الاتصال أو حاوِل لاحقًا</string>
     <string name="pextra_no_space">يلزم توفُّر 4 GB على الأقل بالإضافة إلى حجم التنزيل لتثبيت %1$s</string>
     <string name="pextra_downloading">جارٍ تنزيل %1$s %2$s</string>
     <string name="pextra_retrying">جارٍ إعادة محاولة التنزيل · المحاولة %1$d من %2$d</string>

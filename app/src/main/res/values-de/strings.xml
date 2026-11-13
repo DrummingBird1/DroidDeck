@@ -2000,6 +2000,7 @@
     <string name="pextra_busy">Es läuft bereits die Installation eines Kompatibilitätstools</string>
     <string name="pextra_stop_session">Beende die aktive Sitzung, bevor du Kompatibilitätstools installierst</string>
     <string name="pextra_no_release">Kein ARM64-Release für %1$s gefunden</string>
+    <string name="pextra_no_release_list">Die Release-Liste von %1$s konnte nicht von GitHub gelesen werden; prüfe die Verbindung oder versuche es später erneut</string>
     <string name="pextra_no_space">Zum Installieren von %1$s werden mindestens 4 GB freier Speicherplatz plus die Downloadgröße benötigt</string>
     <string name="pextra_downloading">%1$s %2$s wird heruntergeladen</string>
     <string name="pextra_retrying">Download wird wiederholt · Versuch %1$d von %2$d</string>

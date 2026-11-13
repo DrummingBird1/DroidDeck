@@ -2008,6 +2008,7 @@
     <string name="pextra_busy">Μια εγκατάσταση εργαλείου συμβατότητας εκτελείται ήδη</string>
     <string name="pextra_stop_session">Διακόψτε την ενεργή συνεδρία πριν εγκαταστήσετε εργαλεία συμβατότητας</string>
     <string name="pextra_no_release">Δεν βρέθηκε κυκλοφορία ARM64 για το %1$s</string>
+    <string name="pextra_no_release_list">Δεν ήταν δυνατή η ανάγνωση της λίστας κυκλοφοριών του %1$s από το GitHub· ελέγξτε τη σύνδεση ή δοκιμάστε αργότερα</string>
     <string name="pextra_no_space">Απαιτούνται τουλάχιστον 4 GB ελεύθερα συν το μέγεθος της λήψης για να εγκατασταθεί το %1$s</string>
     <string name="pextra_downloading">Λήψη %1$s %2$s</string>
     <string name="pextra_retrying">Επανάληψη λήψης · προσπάθεια %1$d από %2$d</string>

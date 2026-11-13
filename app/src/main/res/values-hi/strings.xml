@@ -2008,6 +2008,7 @@
     <string name="pextra_busy">एक कम्पैटिबिलिटी टूल इंस्टॉल पहले से चल रहा है</string>
     <string name="pextra_stop_session">कम्पैटिबिलिटी टूल इंस्टॉल करने से पहले चल रहा सेशन बंद करें</string>
     <string name="pextra_no_release">%1$s के लिए कोई ARM64 रिलीज़ नहीं मिली</string>
+    <string name="pextra_no_release_list">GitHub से %1$s की रिलीज़ सूची नहीं पढ़ी जा सकी; कनेक्शन जाँचें या बाद में फिर कोशिश करें</string>
     <string name="pextra_no_space">%1$s इंस्टॉल करने के लिए कम से कम 4 GB खाली जगह और डाउनलोड आकार चाहिए</string>
     <string name="pextra_downloading">%1$s %2$s डाउनलोड हो रहा है</string>
     <string name="pextra_retrying">डाउनलोड फिर से कोशिश हो रहा है · %2$d में से %1$d प्रयास</string>

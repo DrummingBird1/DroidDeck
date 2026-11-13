@@ -218,7 +218,8 @@ object ProtonExtras {
         if (SessionState.running) return context.getString(R.string.pextra_stop_session)
         if (!LinuxRuntime.isInstalled(context)) return context.getString(R.string.user_apps_runtime_required)
 
-        val asset = findLatestAsset(tool) ?: return context.getString(R.string.pextra_no_release, tool.name)
+        val releases = releases(tool) ?: return context.getString(R.string.pextra_no_release_list, tool.name)
+        val asset = latestIn(tool, releases) ?: return context.getString(R.string.pextra_no_release, tool.name)
         val downloads = File(context.filesDir, "proton-downloads").apply { mkdirs() }
         val archive = File(downloads, "${tool.id}-${asset.name}")
         if (asset.size > 0 && archive.length() > asset.size) archive.delete()
@@ -331,15 +332,25 @@ object ProtonExtras {
         }
     }
 
-    private fun findLatestAsset(tool: Tool): Asset? {
-        val releases = Downloader.downloadString(RELEASES.format(tool.repo)) ?: return null
+    private fun findLatestAsset(tool: Tool): Asset? = releases(tool)?.let { latestIn(tool, it) }
+
+    private fun releases(tool: Tool): JSONArray? {
+        val body = Downloader.downloadString(RELEASES.format(tool.repo)) ?: return null
         return try {
-            pickAsset(tool, JSONArray(releases))
+            JSONArray(body)
+        } catch (e: Exception) {
+            Log.w(TAG, "release list for ${tool.id}", e)
+            null
+        }
+    }
+
+    private fun latestIn(tool: Tool, releases: JSONArray): Asset? =
+        try {
+            pickAsset(tool, releases)
         } catch (e: Exception) {
             Log.w(TAG, "release metadata for ${tool.id}", e)
             null
         }
-    }
 
     internal fun pickAsset(tool: Tool, array: JSONArray): Asset? {
         for (i in 0 until array.length()) {

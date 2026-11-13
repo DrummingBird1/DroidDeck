@@ -2008,6 +2008,7 @@
     <string name="pextra_busy">Вече тече инсталация на инструмент за съвместимост</string>
     <string name="pextra_stop_session">Спри активната сесия, преди да инсталираш инструменти за съвместимост</string>
     <string name="pextra_no_release">Не беше намерена ARM64 версия на %1$s</string>
+    <string name="pextra_no_release_list">Списъкът с версии на %1$s не можа да бъде прочетен от GitHub; провери връзката или опитай по-късно</string>
     <string name="pextra_no_space">За инсталирането на %1$s са необходими поне 4 GB свободно място плюс размера на изтеглянето</string>
     <string name="pextra_downloading">Изтегляне на %1$s %2$s</string>
     <string name="pextra_retrying">Повторен опит за изтегляне · опит %1$d от %2$d</string>

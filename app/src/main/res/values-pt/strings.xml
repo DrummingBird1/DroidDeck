@@ -2025,6 +2025,7 @@
     <string name="pextra_busy">Já há uma instalação de ferramenta de compatibilidade em andamento</string>
     <string name="pextra_stop_session">Pare a sessão ativa antes de instalar ferramentas de compatibilidade</string>
     <string name="pextra_no_release">Não foi possível encontrar uma versão ARM64 de %1$s</string>
+    <string name="pextra_no_release_list">Não foi possível ler a lista de versões de %1$s no GitHub; verifique a conexão ou tente de novo mais tarde</string>
     <string name="pextra_no_space">É preciso ter pelo menos 4 GB livres, além do tamanho do download, para instalar %1$s</string>
     <string name="pextra_downloading">Baixando %1$s %2$s</string>
     <string name="pextra_retrying">Tentando baixar de novo · tentativa %1$d de %2$d</string>

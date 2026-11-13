@@ -1983,6 +1983,7 @@
     <string name="pextra_busy">호환성 도구를 이미 설치하고 있습니다</string>
     <string name="pextra_stop_session">호환성 도구를 설치하기 전에 실행 중인 세션을 중지하세요</string>
     <string name="pextra_no_release">%1$s의 ARM64 릴리스를 찾을 수 없습니다</string>
+    <string name="pextra_no_release_list">GitHub에서 %1$s 릴리스 목록을 읽을 수 없습니다. 연결을 확인하거나 나중에 다시 시도하세요</string>
     <string name="pextra_no_space">%1$s을(를) 설치하려면 다운로드 크기에 더해 최소 4GB의 여유 공간이 필요합니다</string>
     <string name="pextra_downloading">%1$s %2$s 다운로드 중</string>
     <string name="pextra_retrying">다운로드 재시도 중 · %2$d회 중 %1$d번째</string>
